@@ -98,4 +98,5 @@ exclude: [
 ]
 
 # Theme
+theme: jekflix
 version: v3.1.1
