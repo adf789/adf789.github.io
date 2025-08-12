@@ -99,16 +99,37 @@ body::before {
 }
 
 .minecraft-logo {
-    font-family: 'Orbitron', monospace;
-    font-size: 14px;
-    font-weight: 700;
-    color: #2E7D32;
-    white-space: pre;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 0px #1B5E20;
-    position: relative;
-    z-index: 1;
-    letter-spacing: 1px;
+    font-family: monospace;
+  white-space: pre;
+  font-size: 20px;
+  color: #0ff;
+  text-shadow:
+    0 0 5px #0ff,
+    0 0 10px #0ff,
+    0 0 20px #0ff,
+    0 0 40px #0ff,
+    0 0 80px #0ff,
+    0 0 90px #0ff,
+    0 0 100px #0ff;
+  animation: flicker 1.5s infinite alternate;
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    text-shadow:
+      0 0 5px #0ff,
+      0 0 10px #0ff,
+      0 0 20px #0ff,
+      0 0 40px #0ff,
+      0 0 80px #0ff,
+      0 0 90px #0ff,
+      0 0 100px #0ff;
+  }
+  20%, 24%, 55% {
+    opacity: 0.3;
+    text-shadow: none;
+  }
 }
 
 .name {
