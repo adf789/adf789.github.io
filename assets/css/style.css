@@ -840,6 +840,326 @@ body::before {
 }
 
 /* ==========================================================================
+   Export 버튼 스타일
+   ========================================================================== */
+
+.export-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+}
+
+.export-btn {
+    background: linear-gradient(145deg, #FF9800, #F57C00);
+    border: 2px solid #E65100;
+    box-shadow: 
+        inset 1px 1px 0px #FFB74D,
+        inset -1px -1px 0px #EF6C00,
+        0 4px 8px rgba(0,0,0,0.2);
+    color: #FFFFFF;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 0.8em;
+    font-weight: 600;
+    position: relative;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    text-shadow: 1px 1px 0px #E65100;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 0;
+    outline: none;
+}
+
+.export-btn:hover {
+    background: linear-gradient(145deg, #FFB74D, #FF9800);
+    transform: translateY(-2px);
+    box-shadow: 
+        inset 1px 1px 0px #FFCC02,
+        inset -1px -1px 0px #F57C00,
+        0 6px 12px rgba(0,0,0,0.3);
+}
+
+.export-btn:active {
+    transform: translateY(1px);
+    box-shadow: 
+        inset 1px 1px 0px #EF6C00,
+        inset -1px -1px 0px #FFB74D,
+        0 2px 4px rgba(0,0,0,0.2);
+}
+
+.print-btn {
+    background: linear-gradient(145deg, #9C27B0, #7B1FA2);
+    border-color: #4A148C;
+}
+
+.print-btn:hover {
+    background: linear-gradient(145deg, #BA68C8, #9C27B0);
+}
+
+.export-icon {
+    font-size: 1.1em;
+    margin-right: 2px;
+}
+
+/* Export 버튼 로딩 상태 */
+.export-btn.loading {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.export-btn.loading .export-icon {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   인쇄용 스타일
+   ========================================================================== */
+
+@media print {
+    /* 배경 제거 */
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+    
+    body::before {
+        display: none !important;
+    }
+    
+    /* Export 버튼 숨기기 */
+    .export-buttons {
+        display: none !important;
+    }
+    
+    /* 컨테이너 */
+    .container {
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* 헤더 */
+    .header {
+        background: white !important;
+        border: 2px solid black !important;
+        box-shadow: none !important;
+        margin-bottom: 20px;
+        page-break-inside: avoid;
+    }
+    
+    .header::before {
+        display: none !important;
+    }
+    
+    .minecraft-logo {
+        color: black !important;
+        text-shadow: none !important;
+    }
+    
+    .name {
+        color: black !important;
+        text-shadow: none !important;
+        font-size: 24pt;
+    }
+    
+    .title {
+        color: black !important;
+        text-shadow: none !important;
+    }
+    
+    .contact-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .contact-item {
+        background: white !important;
+        border: 1px solid black !important;
+        color: black !important;
+        text-shadow: none !important;
+        box-shadow: none !important;
+        padding: 5px 10px;
+        margin: 2px 0;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    /* 섹션 */
+    .section {
+        background: white !important;
+        border: 2px solid black !important;
+        box-shadow: none !important;
+        margin: 15px 0;
+        page-break-inside: avoid;
+    }
+    
+    .section-header {
+        background: #f0f0f0 !important;
+        border-bottom: 2px solid black !important;
+        color: black !important;
+        text-shadow: none !important;
+        box-shadow: none !important;
+    }
+    
+    .inventory-icon {
+        background: #f0f0f0 !important;
+        border: 1px solid black !important;
+        box-shadow: none !important;
+    }
+    
+    .section-content {
+        background: white !important;
+        padding: 15px;
+    }
+    
+    /* 프로젝트 카드 */
+    .project-card {
+        background: white !important;
+        border: 1px solid black !important;
+        box-shadow: none !important;
+        margin: 10px 0;
+        page-break-inside: avoid;
+    }
+    
+    .project-card::before {
+        display: none !important;
+    }
+    
+    .project-title {
+        color: black !important;
+        text-shadow: none !important;
+    }
+    
+    .meta-item {
+        background: #f0f0f0 !important;
+        border: 1px solid black !important;
+        color: black !important;
+        text-shadow: none !important;
+        box-shadow: none !important;
+    }
+    
+    .tech-tag {
+        background: #f0f0f0 !important;
+        border: 1px solid black !important;
+        color: black !important;
+        text-shadow: none !important;
+        box-shadow: none !important;
+    }
+    
+    /* 버튼들 숨기기 */
+    .details-toggle {
+        display: none !important;
+    }
+    
+    /* 상세 내용 항상 표시 */
+    .details-content {
+        display: block !important;
+        background: white !important;
+        border: 1px solid black !important;
+        box-shadow: none !important;
+        margin-top: 10px;
+    }
+    
+    /* 코드 블록 */
+    .code-snippet,
+    .architecture-diagram,
+    .code-block {
+        background: #f5f5f5 !important;
+        border: 1px solid black !important;
+        color: black !important;
+        text-shadow: none !important;
+        box-shadow: none !important;
+    }
+    
+    /* 성능 통계 */
+    .stat-item {
+        background: #f0f0f0 !important;
+        border: 1px solid black !important;
+        box-shadow: none !important;
+    }
+    
+    .stat-value {
+        color: black !important;
+        text-shadow: none !important;
+    }
+    
+    .stat-label {
+        color: black !important;
+        text-shadow: none !important;
+    }
+    
+    /* 스킬 */
+    .skill-category {
+        background: white !important;
+        border: 1px solid black !important;
+        box-shadow: none !important;
+    }
+    
+    .skill-level {
+        background: #f0f0f0 !important;
+        border: 1px solid black !important;
+        box-shadow: none !important;
+    }
+    
+    .skill-fill {
+        background: #d0d0d0 !important;
+        box-shadow: none !important;
+    }
+    
+    /* 미디어 갤러리 */
+    .media-item img,
+    .media-item video {
+        max-width: 100%;
+        height: auto;
+        border: 1px solid black !important;
+    }
+    
+    .image-fallback,
+    .screenshot-placeholder {
+        background: #f5f5f5 !important;
+        border: 1px solid black !important;
+        color: black !important;
+        text-shadow: none !important;
+        box-shadow: none !important;
+    }
+    
+    /* 모달 숨기기 */
+    .modal {
+        display: none !important;
+    }
+    
+    /* 페이지 브레이크 */
+    .section {
+        page-break-inside: avoid;
+    }
+    
+    .project-card {
+        page-break-inside: avoid;
+    }
+    
+    h1, h2, h3, h4 {
+        page-break-after: avoid;
+    }
+}
+
+/* ==========================================================================
    반응형 디자인
    ========================================================================== */
 
@@ -886,6 +1206,22 @@ body::before {
         width: 100%;
         max-width: 280px;
         text-align: center;
+    }
+    
+    /* Export 버튼 모바일 */
+    .export-buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        margin-top: 20px;
+    }
+    
+    .export-btn {
+        font-size: 0.75em;
+        padding: 10px 16px;
+        width: 100%;
+        max-width: 220px;
+        justify-content: center;
     }
     
     .section {

@@ -67,9 +67,11 @@ function updateTitle() {
         rankText = '🟤 DIRT ENGINEER (0-1년)';
         tooltipText = '🌱 DIRT DIGGER - 모든 것의 시작점이 되는 기본 블록 - 무한한 가능성을 품고 있음 - 열정 가득한 신입 개발자';
     }
+
+    tooltipText = '🟤 DIRT ENGINEER (0-1년)\n🔘 STONE ENGINEER (1-3년)\n⚪ IRON ENGINEER (3-5년)\n🟡 GOLD ENGINEER (5-7년)\n🟣 OBSIDIAN ENGINEER (7-10년)\n🔵 DIAMOND ENGINEER (10-15년)\n⚫ BEDROCK ENGINEER (15년+)'
     
     // 타이틀 업데이트
-    titleElement.textContent = `🎮 GAME DEVELOPER • ${rankText} • UNITY & UNREAL MASTER 🎮`;
+    titleElement.textContent = `🎮 GAME DEVELOPER • ${rankText} 🎮`;
     
     // 툴팁 업데이트 (브라우저 기본 툴팁 사용)
     titleElement.title = tooltipText;
@@ -512,6 +514,364 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
 }
 
 // ==========================================================================
+// Export 기능
+// ==========================================================================
+
+/**
+ * Word 문서로 내보내기 (HTML을 Word에서 읽을 수 있는 형식으로 변환)
+ */
+function exportToWord() {
+    const button = event.target.closest('.export-btn');
+    showLoading(button);
+    
+    try {
+        // 포트폴리오 내용을 Word 호환 HTML로 변환
+        const portfolioContent = generateWordContent();
+        
+        // Blob 생성 (Word에서 읽을 수 있는 HTML 형식)
+        const blob = new Blob([portfolioContent], {
+            type: 'application/msword'
+        });
+        
+        // 다운로드 링크 생성
+        const url = window.URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `김개발자_포트폴리오_${getFormattedDate()}.doc`;
+        
+        // 다운로드 실행
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // URL 해제
+        setTimeout(() => {
+            window.URL.revokeObjectURL(url);
+        }, 1000);
+        
+        console.log('Word 문서 다운로드 완료');
+        
+    } catch (error) {
+        console.error('Word 내보내기 실패:', error);
+        alert('Word 문서 생성 중 오류가 발생했습니다.');
+    } finally {
+        hideLoading(button);
+    }
+}
+
+/**
+ * PDF로 내보내기 (브라우저 인쇄 기능 활용)
+ */
+function exportToPDF() {
+    const button = event.target.closest('.export-btn');
+    showLoading(button);
+    
+    try {
+        // PDF 인쇄용 설정
+        const printCSS = `
+            <style>
+                @media print {
+                    @page { 
+                        margin: 1cm; 
+                        size: A4; 
+                    }
+                    body { 
+                        font-family: 'Arial', sans-serif !important;
+                        -webkit-print-color-adjust: exact !important;
+                        color-adjust: exact !important;
+                    }
+                }
+            </style>
+        `;
+        
+        // 현재 head에 임시 스타일 추가
+        const styleElement = document.createElement('style');
+        styleElement.innerHTML = printCSS.replace(/<\/?style>/g, '');
+        document.head.appendChild(styleElement);
+        
+        // PDF로 인쇄 안내
+        setTimeout(() => {
+            alert('PDF로 저장하려면:\n1. 인쇄 대화상자에서 "대상"을 "PDF로 저장" 선택\n2. "저장" 버튼 클릭');
+            window.print();
+            
+            // 임시 스타일 제거
+            setTimeout(() => {
+                document.head.removeChild(styleElement);
+            }, 1000);
+        }, 500);
+        
+        console.log('PDF 인쇄 대화상자 열림');
+        
+    } catch (error) {
+        console.error('PDF 내보내기 실패:', error);
+        alert('PDF 생성 중 오류가 발생했습니다.');
+    } finally {
+        hideLoading(button);
+    }
+}
+
+/**
+ * Word 호환 HTML 콘텐츠 생성
+ */
+function generateWordContent() {
+    const exp = calculateExperience();
+    const currentDate = getFormattedDate();
+    
+    // 모든 프로젝트 세부 내용 수집
+    const projectDetails = collectProjectDetails();
+    
+    return `
+<!DOCTYPE html>
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+      xmlns:w="urn:schemas-microsoft-com:office:word"
+      xmlns="http://www.w3.org/TR/REC-html40">
+<head>
+<meta charset="utf-8">
+<meta name="ProgId" content="Word.Document">
+<meta name="Generator" content="Microsoft Word 15">
+<meta name="Originator" content="Microsoft Word 15">
+<title>김개발자 - 게임 개발자 포트폴리오</title>
+<!--[if gte mso 9]>
+<xml>
+<w:WordDocument>
+<w:View>Print</w:View>
+<w:Zoom>90</w:Zoom>
+<w:DoNotPromptForConvert/>
+<w:DoNotShowInsertionsAndDeletions/>
+</w:WordDocument>
+</xml>
+<![endif]-->
+<style>
+body { font-family: 'Malgun Gothic', Arial, sans-serif; font-size: 12pt; line-height: 1.6; margin: 40px; }
+h1 { font-size: 24pt; color: #1976D2; text-align: center; margin-bottom: 20px; }
+h2 { font-size: 18pt; color: #333; border-bottom: 2px solid #1976D2; padding-bottom: 5px; margin-top: 30px; }
+h3 { font-size: 14pt; color: #1976D2; margin-top: 20px; }
+h4 { font-size: 12pt; color: #666; margin-top: 15px; }
+.header { text-align: center; margin-bottom: 40px; border-bottom: 3px solid #1976D2; padding-bottom: 20px; }
+.contact-info { margin: 20px 0; text-align: center; }
+.contact-item { display: inline-block; margin: 0 15px; padding: 5px 10px; border: 1px solid #ccc; }
+.project-card { border: 1px solid #ddd; padding: 20px; margin: 20px 0; page-break-inside: avoid; }
+.project-meta { margin: 10px 0; }
+.meta-item { display: inline-block; background: #f0f0f0; padding: 3px 8px; margin: 2px; border: 1px solid #ccc; font-size: 10pt; }
+.tech-tag { display: inline-block; background: #e3f2fd; padding: 3px 8px; margin: 2px; border: 1px solid #1976d2; font-size: 10pt; }
+.skill-category { margin: 20px 0; }
+.skill-item { margin: 10px 0; }
+.code-snippet, .architecture-diagram { background: #f5f5f5; border: 1px solid #ddd; padding: 15px; margin: 10px 0; font-family: 'Consolas', monospace; font-size: 10pt; white-space: pre-wrap; }
+.performance-stats { display: table; width: 100%; margin: 15px 0; }
+.stat-item { display: table-cell; background: #fff3e0; border: 1px solid #ff9800; padding: 10px; text-align: center; }
+ul { margin-left: 20px; }
+li { margin: 5px 0; }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>김개발자 - 게임 개발자 포트폴리오</h1>
+    <p><strong>🎮 GAME DEVELOPER • ${getRankText(exp.years)} • UNITY & UNREAL MASTER 🎮</strong></p>
+    <div class="contact-info">
+        <span class="contact-item">📧 developer@email.com</span>
+        <span class="contact-item">📱 010-0000-0000</span>
+        <span class="contact-item">🔗 github.com/developer</span>
+        <span class="contact-item">💼 yourusername.github.io</span>
+    </div>
+    <p><em>생성일: ${currentDate} | 총 경력: ${exp.years}년 ${exp.months}개월</em></p>
+</div>
+
+<h2>🏗️ PLAYER PROFILE (프로필 개요)</h2>
+<p><strong>🏗️ BUILDING EXPERIENCE:</strong> 5년<br>
+<strong>🎯 SPECIALIZATION:</strong> 게임 세계 구축 및 최적화<br>
+<strong>⚡ CORE SKILLS:</strong> Unity & Unreal Engine을 활용한 크로스 플랫폼 게임 개발</p>
+
+<p>마인크래프트처럼 무한한 가능성을 가진 게임 세계를 만드는 것이 저의 목표입니다. 한 블록 한 블록 쌓아 올리듯 안정적이고 확장 가능한 코드를 작성하며, 플레이어들이 멋진 모험을 할 수 있는 게임을 만들어갑니다. 성능 최적화와 메모리 관리를 통해 어떤 디바이스에서도 부드럽게 실행되는 게임을 구현합니다.</p>
+
+<h2>🎮 COMPLETED PROJECTS (상용 프로젝트)</h2>
+
+<div class="project-card">
+    <h3>[COMPANY A] MOBILE RPG WORLD</h3>
+    <div class="project-meta">
+        <span class="meta-item">📱 MOBILE</span>
+        <span class="meta-item">👥 TEAM: 15</span>
+        <span class="meta-item">⏰ 18 MONTHS</span>
+        <span class="meta-item">📈 1M+ DOWNLOADS</span>
+    </div>
+    
+    <p><strong>ROLE:</strong> 메인 클라이언트 개발자 (UI 시스템, 전투 시스템)<br>
+    <strong>ACHIEVEMENTS:</strong></p>
+    <ul>
+        <li>🧱 Unity UGUI 기반 모듈형 UI 프레임워크 설계</li>
+        <li>⚡ 메모리 사용량 40% 절감을 위한 리소스 최적화</li>
+        <li>⚔️ 실시간 PvP 전투 시스템 네트워크 동기화</li>
+        <li>🚀 크로스 플랫폼 자동 빌드 파이프라인 구축</li>
+    </ul>
+    
+    <p><strong>기술 스택:</strong></p>
+    <p>
+        <span class="tech-tag">UNITY 2021.3</span>
+        <span class="tech-tag">C#</span>
+        <span class="tech-tag">UGUI</span>
+        <span class="tech-tag">MIRROR NET</span>
+        <span class="tech-tag">ADDRESSABLES</span>
+    </p>
+    
+    <h4>📊 PERFORMANCE METRICS</h4>
+    <div class="performance-stats">
+        <div class="stat-item"><strong>40%</strong><br>메모리 절감</div>
+        <div class="stat-item"><strong>60FPS</strong><br>안정 프레임</div>
+        <div class="stat-item"><strong>200ms</strong><br>UI 반응속도</div>
+        <div class="stat-item"><strong>15MB</strong><br>런타임 메모리</div>
+    </div>
+    
+    <h4>🏗️ SYSTEM ARCHITECTURE</h4>
+    <div class="architecture-diagram">┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
+│   UI MANAGER    │◄──►│  RESOURCE POOL   │◄──►│  NETWORK MGR    │
+│                 │    │                  │    │                 │
+│ • Panel Stack   │    │ • Asset Bundle   │    │ • Mirror Net    │
+│ • Event System  │    │ • Object Pool    │    │ • Sync System   │
+│ • Animation Mgr │    │ • Memory Monitor │    │ • PvP Handler   │
+└─────────────────┘    └──────────────────┘    └─────────────────┘
+           │                       │                       │
+           └───────────────────────┼───────────────────────┘
+                                   ▼
+                        ┌──────────────────┐
+                        │   GAME CORE      │
+                        │                  │
+                        │ • State Machine  │
+                        │ • Event Bus      │
+                        │ • Save System    │
+                        └──────────────────┘</div>
+    
+    <h4>💻 CODE SAMPLE</h4>
+    <div class="code-snippet">// 최적화된 UI 매니저 핵심 로직
+public class UIManager : MonoBehaviour 
+{
+    private Dictionary&lt;Type, UIPanel&gt; panelCache = new();
+    private Stack&lt;UIPanel&gt; panelStack = new();
+    
+    public T ShowPanel&lt;T&gt;() where T : UIPanel
+    {
+        if (!panelCache.TryGetValue(typeof(T), out var panel))
+        {
+            panel = ResourcePool.Instance.GetPanel&lt;T&gt;();
+            panelCache[typeof(T)] = panel;
+        }
+        
+        panelStack.Push(panel);
+        panel.Show();
+        return panel as T;
+    }
+}</div>
+</div>
+
+<h2>🎮 SKILL INVENTORY (기술 스킬)</h2>
+
+<div class="skill-category">
+    <h3>🎮 GAME ENGINES</h3>
+    <div class="skill-item">Unity (5년 경험) - ■■■■■ 95%</div>
+    <div class="skill-item">Unreal Engine (2년 경험) - ■■■■□ 80%</div>
+</div>
+
+<div class="skill-category">
+    <h3>💻 PROGRAMMING</h3>
+    <div class="skill-item">C# (실무 5년) - ■■■■■ 90%</div>
+    <div class="skill-item">C++ (실무 2년) - ■■■■□ 75%</div>
+    <div class="skill-item">Python (학습 중) - ■■■□□ 60%</div>
+</div>
+
+<h2>💻 CODE REPOSITORY (코드 샘플)</h2>
+<div class="code-snippet">🔗 GITHUB REPOSITORY ACCESS
+📍 URL: github.com/developer/game-frameworks
+✅ STATUS: PUBLIC ACCESS GRANTED
+
+MODULAR UI FRAMEWORK SYSTEM
+OPTIMIZED OBJECT POOLING MANAGER
+EVENT DRIVEN GAMESTATE CONTROLLER
+CROSS PLATFORM INPUT WRAPPER
+
+✅ DOWNLOAD COMPLETE • ALL SYSTEMS OPERATIONAL</div>
+
+<hr style="margin-top: 50px; border: 2px solid #1976D2;">
+<p style="text-align: center; color: #666; font-size: 10pt; margin-top: 20px;">
+    <em>이 문서는 웹 포트폴리오에서 자동 생성되었습니다. | 최신 정보: yourusername.github.io</em>
+</p>
+
+</body>
+</html>`;
+}
+
+/**
+ * 프로젝트 세부 정보 수집
+ */
+function collectProjectDetails() {
+    const details = [];
+    document.querySelectorAll('.details-content').forEach(detail => {
+        if (detail.id) {
+            details.push({
+                id: detail.id,
+                content: detail.innerHTML
+            });
+        }
+    });
+    return details;
+}
+
+/**
+ * 경력에 따른 랭크 텍스트 반환
+ */
+function getRankText(years) {
+    if (years >= 15) return '⚫ BEDROCK ENGINEER (15년+)';
+    if (years >= 10) return '🔵 DIAMOND ENGINEER (10-15년)';
+    if (years >= 7) return '🟣 OBSIDIAN ENGINEER (7-10년)';
+    if (years >= 5) return '🟡 GOLD ENGINEER (5-7년)';
+    if (years >= 3) return '⚪ IRON ENGINEER (3-5년)';
+    if (years >= 1) return '🔘 STONE ENGINEER (1-3년)';
+    return '🟤 DIRT ENGINEER (0-1년)';
+}
+
+/**
+ * 현재 날짜를 포맷된 문자열로 반환
+ */
+function getFormattedDate() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+}
+
+/**
+ * 버튼 로딩 상태 표시
+ */
+function showLoading(button) {
+    if (button) {
+        button.classList.add('loading');
+        const icon = button.querySelector('.export-icon');
+        if (icon) {
+            icon.textContent = '⏳';
+        }
+    }
+}
+
+/**
+ * 버튼 로딩 상태 해제
+ */
+function hideLoading(button) {
+    if (button) {
+        setTimeout(() => {
+            button.classList.remove('loading');
+            const icon = button.querySelector('.export-icon');
+            if (icon) {
+                // 원래 아이콘으로 복원
+                if (button.onclick.toString().includes('exportToWord')) {
+                    icon.textContent = '📄';
+                } else if (button.onclick.toString().includes('exportToPDF')) {
+                    icon.textContent = '📋';
+                }
+            }
+        }, 1000);
+    }
+}
+
+// ==========================================================================
 // 전역 함수 노출 (HTML에서 호출용)
 // ==========================================================================
 
@@ -520,5 +880,7 @@ window.toggleDetails = toggleDetails;
 window.smoothScrollTo = smoothScrollTo;
 window.openImageModal = openImageModal;
 window.closeImageModal = closeImageModal;
+window.exportToWord = exportToWord;
+window.exportToPDF = exportToPDF;
 
-console.log('🎯 Main.js loaded successfully!');
+console.log('🎯 Main.js with export features loaded successfully!');
