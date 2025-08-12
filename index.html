@@ -941,6 +941,71 @@
         }
     </style>
     <script>
+        const careerStartDate = new Date('2020-11-11');
+        
+        function calculateExperience() {
+            const now = new Date();
+            const diffTime = Math.abs(now - careerStartDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            // 년/월/일 계산
+            const years = Math.floor(diffDays / 365);
+            const remainingDays = diffDays % 365;
+            const months = Math.floor(remainingDays / 30);
+            const days = remainingDays % 30;
+            
+            return { years, months, days, totalDays: diffDays };
+        }
+        
+        function updateTitle() {
+            const exp = calculateExperience();
+            const titleElement = document.getElementById('dynamic-title');
+            const tooltipElement = document.getElementById('rank-tooltip');
+            
+            // 요소가 존재하는지 확인 (디버깅 정보 추가)
+            if (!titleElement) {
+                console.log('Title element not found');
+                return;
+            }
+            if (!tooltipElement) {
+                console.log('Tooltip element not found');
+                return;
+            }
+            
+            let rankText = '';
+            let tooltipText = '';
+            
+            // 마인크래프트 블록 색상별 동그라미 랭크 시스템
+            if (exp.years >= 15) {
+                rankText = '⚫ BEDROCK ENGINEER (15년+)';
+                tooltipText = '🗿 BEDROCK MASTER<br>• 절대 파괴할 수 없는 최강의 블록<br>• 게임 개발의 전설적인 마스터<br>• 모든 기술과 경험을 겸비한 베테랑';
+            } else if (exp.years >= 10) {
+                rankText = '🔵 DIAMOND ENGINEER (10-15년)';
+                tooltipText = '💎 DIAMOND EXPERT<br>• 가장 단단하고 희귀한 광물<br>• 최고급 도구와 무기 제작 가능<br>• 업계 최고 수준의 시니어 개발자';
+            } else if (exp.years >= 7) {
+                rankText = '🟣 OBSIDIAN ENGINEER (7-10년)';
+                tooltipText = '🌋 OBSIDIAN CRAFTSMAN<br>• 용암과 물이 만나 생성되는 강력한 블록<br>• 네더 포털 제작에 필수적<br>• 고급 기술력을 보유한 전문가';
+            } else if (exp.years >= 5) {
+                rankText = '🟡 GOLD ENGINEER (5-7년)';
+                tooltipText = '✨ GOLD SPECIALIST<br>• 희귀하고 빛나는 귀중한 광물<br>• 레드스톤 회로에 최적화<br>• 창의적 해결책을 제시하는 시니어';
+            } else if (exp.years >= 3) {
+                rankText = '⚪ IRON ENGINEER (3-5년)';
+                tooltipText = '⚡ IRON DEVELOPER<br>• 실용적이고 든든한 중급 재료<br>• 대부분의 도구와 장비 제작 가능<br>• 안정적인 기술력을 갖춘 개발자';
+            } else if (exp.years >= 1) {
+                rankText = '🔘 STONE ENGINEER (1-3년)';
+                tooltipText = '🏗️ STONE BUILDER<br>• 기본적이지만 견고한 건축 재료<br>• 다양한 구조물 제작의 기초<br>• 탄탄한 기본기를 갖춘 주니어';
+            } else {
+                rankText = '🟤 DIRT ENGINEER (0-1년)';
+                tooltipText = '🌱 DIRT DIGGER<br>• 모든 것의 시작점이 되는 기본 블록<br>• 무한한 가능성을 품고 있음<br>• 열정 가득한 신입 개발자';
+            }
+            
+            // 타이틀과 툴팁 업데이트
+            titleElement.textContent = `🎮 GAME DEVELOPER • ${rankText} • UNITY & UNREAL MASTER 🎮`;
+            tooltipElement.innerHTML = tooltipText;
+            
+            console.log('Title updated successfully!');
+        }
+		
         function toggleDetails(projectId) {
             const content = document.getElementById(projectId);
             const button = event.target;
@@ -972,19 +1037,19 @@
         <!-- 마인크래프트 스타일 헤더 -->
         <div class="header">
             <div class="minecraft-logo">
-████    ████ ██ ██   ██ ████ ████ ████ ████ ████ ████
-██  ██    ██ ██ ███  ██ ██   ██   ██   ██   ██   ██  
-██████    ██ ██ ████ ██ ████ ████ ████ ████ ████ ████
-██  ██    ██ ██ ██ ████ ██   ██   ██ █ ██ █ ██   ██  
-██  ██ ██ ██ ██ ██  ███ ████ ████ ████ ████ █ ██ ████
+██████╗  █████╗ ███╗   ███╗███████╗    ██████╗ ███████╗██╗   ██╗
+██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔══██╗██╔════╝██║   ██║
+██║  ███╗███████║██╔████╔██║█████╗      ██║  ██║█████╗  ██║   ██║
+██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║  ██║██╔══╝  ╚██╗ ██╔╝
+╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ██████╔╝███████╗ ╚████╔╝ 
+ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝    ╚═════╝ ╚══════╝  ╚═══╝
             </div>
-            <h1 class="name">김개발자</h1>
-            <p class="title">🎮 SENIOR GAME DEVELOPER • LV.5 • UNITY & UNREAL MASTER 🎮</p>
+            <h1 class="name">김경한</h1>
+            <p class="title" id="dynamic-title">🎮 SENIOR GAME DEVELOPER • CALCULATING... 🎮</p>
             <div class="contact-info">
-                <div class="contact-item">📧 developer@email.com</div>
-                <div class="contact-item">📱 010-0000-0000</div>
-                <div class="contact-item">🔗 github.com/developer</div>
-                <div class="contact-item">💼 portfolio.minecraft</div>
+                <div class="contact-item">📧 kpoint776@email.com</div>
+                <div class="contact-item">📱 010-7160-2440</div>
+                <div class="contact-item">🔗 github.com/adf789</div>
             </div>
         </div>
 
