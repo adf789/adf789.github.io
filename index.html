@@ -1030,6 +1030,44 @@
                 button.classList.add('active');
             }
         }
+		
+		// 페이지 로드 시 타이틀 업데이트
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM Content Loaded');
+            
+            // 여러 번 시도하여 요소를 찾기
+            function tryUpdateTitle(attempts = 0) {
+                if (attempts >= 10) {
+                    console.log('Max attempts reached, giving up');
+                    return;
+                }
+                
+                const titleElement = document.getElementById('dynamic-title');
+                const tooltipElement = document.getElementById('rank-tooltip');
+                
+                if (titleElement && tooltipElement) {
+                    console.log('Elements found, updating title');
+                    updateTitle();
+                } else {
+                    console.log(`Attempt ${attempts + 1}: Elements not found, retrying in 100ms...`);
+                    setTimeout(() => tryUpdateTitle(attempts + 1), 100);
+                }
+            }
+            
+            tryUpdateTitle();
+            
+            // 매일 자정에 업데이트
+            const now = new Date();
+            const tomorrow = new Date(now);
+            tomorrow.setDate(now.getDate() + 1);
+            tomorrow.setHours(0, 0, 0, 0);
+            const msUntilMidnight = tomorrow.getTime() - now.getTime();
+            
+            setTimeout(() => {
+                updateTitle();
+                setInterval(updateTitle, 24 * 60 * 60 * 1000);
+            }, msUntilMidnight);
+        });
     </script>
 </head>
 <body>
