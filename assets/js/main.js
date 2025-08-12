@@ -58,12 +58,12 @@ function updateTitle() {
     }
 
     tooltipText = `0-1년 : 🟤 DIRT
-    1-3년: 🔘 STONE
-    3-5년: ⚪ IRON
-    5-7년: 🟡 GOLD
-    7-10년: 🟣 OBSIDIAN
-    10-15년: 🔵 DIAMOND
-    15년+: ⚫ BEDROCK`;
+1-3년: 🔘 STONE
+3-5년: ⚪ IRON
+5-7년: 🟡 GOLD
+7-10년: 🟣 OBSIDIAN
+10-15년: 🔵 DIAMOND
+15년+: ⚫ BEDROCK`;
     
     // 타이틀 업데이트
     titleElement.textContent = `🎮 GAME DEVELOPER • ${rankText} (${expText})🎮`;
@@ -395,7 +395,7 @@ function displayConsoleArt() {
 // ==========================================================================
 
 /**
- * 디바이스 타입 감지
+ * 디바이스 타입 감지 (성능 최적화 포함)
  * @returns {string} 디바이스 타입
  */
 function getDeviceType() {
@@ -410,6 +410,86 @@ function getDeviceType() {
 }
 
 /**
+ * 디바이스 성능 감지 및 애니메이션 최적화
+ */
+function optimizeAnimationsForDevice() {
+    const deviceType = getDeviceType();
+    const logo = document.querySelector('.minecraft-logo');
+    
+    if (!logo) return;
+    
+    // 저성능 디바이스 감지
+    const isLowPerformance = detectLowPerformanceDevice();
+    
+    // 배터리 상태 확인 (지원하는 브라우저에서)
+    const isLowBattery = checkBatteryLevel();
+    
+    if (deviceType === 'mobile' || isLowPerformance || isLowBattery) {
+        // 모바일 또는 저성능 디바이스에서 추가 최적화
+        logo.style.willChange = 'opacity';
+        logo.style.transform = 'translate3d(0, 0, 0)';
+        
+        // 매우 저성능인 경우 애니메이션 비활성화
+        if (isLowPerformance) {
+            logo.style.animation = 'none';
+            logo.style.textShadow = '0 0 8px #0ff';
+        }
+    }
+    
+    console.log(`🎯 Device optimization: ${deviceType}, Low performance: ${isLowPerformance}, Low battery: ${isLowBattery}`);
+}
+
+/**
+ * 저성능 디바이스 감지
+ * @returns {boolean} 저성능 디바이스 여부
+ */
+function detectLowPerformanceDevice() {
+    // RAM 메모리 확인 (지원하는 브라우저에서)
+    if ('deviceMemory' in navigator) {
+        return navigator.deviceMemory <= 2; // 2GB 이하
+    }
+    
+    // CPU 코어 수 확인
+    if ('hardwareConcurrency' in navigator) {
+        return navigator.hardwareConcurrency <= 2; // 2코어 이하
+    }
+    
+    // User Agent 기반 저성능 디바이스 패턴
+    const ua = navigator.userAgent.toLowerCase();
+    const lowPerformancePatterns = [
+        'android 4', 'android 5', 'android 6',
+        'iphone os 9', 'iphone os 10', 'iphone os 11',
+        'samsung-sm-', 'gt-i9', 'gt-s', 'sh-',
+        'arm_64', 'armv6', 'armv7'
+    ];
+    
+    return lowPerformancePatterns.some(pattern => ua.includes(pattern));
+}
+
+/**
+ * 배터리 레벨 확인
+ * @returns {boolean} 저배터리 상태 여부
+ */
+function checkBatteryLevel() {
+    // Battery API가 지원되는 경우
+    if ('getBattery' in navigator) {
+        navigator.getBattery().then(battery => {
+            if (battery.level <= 0.2 || battery.charging === false) {
+                // 배터리 20% 이하이거나 충전 중이 아닌 경우
+                const logo = document.querySelector('.minecraft-logo');
+                if (logo) {
+                    logo.style.animationDuration = '3s'; // 느린 애니메이션
+                }
+                return true;
+            }
+        }).catch(() => {
+            // Battery API 오류 시 무시
+        });
+    }
+    return false;
+}
+
+/**
  * 브라우저 성능 모니터링 (개발용)
  */
 function monitorPerformance() {
@@ -417,13 +497,77 @@ function monitorPerformance() {
         window.addEventListener('load', () => {
             setTimeout(() => {
                 const perfData = performance.getEntriesByType('navigation')[0];
+                const deviceType = getDeviceType();
+                const isLowPerf = detectLowPerformanceDevice();
+                
                 console.log('📊 Performance Metrics:');
                 console.log(`Load Time: ${(perfData.loadEventEnd - perfData.fetchStart).toFixed(2)}ms`);
                 console.log(`DOM Ready: ${(perfData.domContentLoadedEventEnd - perfData.fetchStart).toFixed(2)}ms`);
-                console.log(`Device Type: ${getDeviceType()}`);
+                console.log(`Device Type: ${deviceType}`);
+                console.log(`Low Performance: ${isLowPerf}`);
+                
+                // 모바일 애니메이션 최적화 상태 확인
+                const logo = document.querySelector('.minecraft-logo');
+                if (logo && deviceType === 'mobile') {
+                    const animationName = getComputedStyle(logo).animationName;
+                    console.log(`🎯 Mobile Animation: ${animationName === 'flickerMobile' ? 'Optimized ✅' : 'Standard'}`);
+                }
+                
+                // 메모리 사용량 모니터링 (지원하는 브라우저에서)
+                if ('memory' in performance) {
+                    const memory = performance.memory;
+                    console.log(`💾 Memory: ${(memory.usedJSHeapSize / 1024 / 1024).toFixed(2)}MB used`);
+                }
+                
+                // 프레임 레이트 모니터링 시작
+                if (deviceType === 'mobile') {
+                    monitorFrameRate();
+                }
             }, 0);
         });
     }
+}
+
+/**
+ * 프레임 레이트 모니터링 (모바일 전용)
+ */
+function monitorFrameRate() {
+    let frames = 0;
+    let lastTime = performance.now();
+    
+    function countFrames(timestamp) {
+        frames++;
+        
+        if (timestamp - lastTime >= 1000) {
+            const fps = Math.round((frames * 1000) / (timestamp - lastTime));
+            
+            if (fps < 30) {
+                console.warn(`⚠️ Low FPS detected: ${fps}fps - Consider reducing animations`);
+                
+                // 매우 낮은 FPS인 경우 애니메이션 자동 비활성화
+                if (fps < 20) {
+                    const logo = document.querySelector('.minecraft-logo');
+                    if (logo) {
+                        logo.style.animation = 'none';
+                        logo.style.textShadow = '0 0 8px #0ff';
+                        console.log('🚨 Animation disabled due to low performance');
+                    }
+                }
+            } else {
+                console.log(`✅ Good FPS: ${fps}fps`);
+            }
+            
+            frames = 0;
+            lastTime = timestamp;
+        }
+        
+        // 5초간만 모니터링
+        if (timestamp - performance.timing.navigationStart < 5000) {
+            requestAnimationFrame(countFrames);
+        }
+    }
+    
+    requestAnimationFrame(countFrames);
 }
 
 // ==========================================================================
@@ -439,24 +583,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // 콘솔 아트 출력
     displayConsoleArt();
     
+    // 디바이스 최적화 (가장 먼저 실행)
+    optimizeAnimationsForDevice();
+    
     // 타이틀 업데이트
     setTimeout(() => {
         updateTitle();
     }, 100);
     
-    // 애니메이션 초기화
+    // 섹션 로더 초기화 및 동적 섹션 로드
     setTimeout(() => {
-        initScrollAnimations();
-        animateSkillBars();
-    }, 300);
-    
-    // 미디어 관련 기능 초기화
-    setTimeout(() => {
-        initMediaGallery();
-        initLazyLoading();
-        handleImageErrors();
-        optimizeTechIcons();
-    }, 500);
+        initializeSectionSystem();
+    }, 200);
     
     // 매일 자정에 경력 업데이트
     const now = new Date();
@@ -471,6 +609,60 @@ document.addEventListener('DOMContentLoaded', function() {
         setInterval(updateTitle, 24 * 60 * 60 * 1000);
     }, msUntilMidnight);
 });
+
+/**
+ * 섹션 시스템 초기화
+ */
+async function initializeSectionSystem() {
+    try {
+        // 섹션 템플릿과 로더가 로드될 때까지 대기
+        if (typeof window.SectionLoader === 'undefined') {
+            console.log('⏳ Waiting for Section Loader...');
+            setTimeout(initializeSectionSystem, 100);
+            return;
+        }
+        
+        console.log('🚀 Initializing section system...');
+        
+        // 섹션 데이터 로드 및 렌더링
+        await window.SectionLoader.renderAllSections('main-container');
+        
+        // 로딩 메시지 제거
+        const loadingMessage = document.getElementById('loading-message');
+        if (loadingMessage) {
+            loadingMessage.style.opacity = '0';
+            setTimeout(() => {
+                loadingMessage.remove();
+            }, 300);
+        }
+        
+        // 애니메이션 초기화 (섹션이 로드된 후)
+        setTimeout(() => {
+            initScrollAnimations();
+            animateSkillBars();
+        }, 500);
+        
+        // 미디어 관련 기능 초기화
+        setTimeout(() => {
+            initMediaGallery();
+            initLazyLoading();
+            handleImageErrors();
+            optimizeTechIcons();
+        }, 700);
+        
+        console.log('✅ Section system initialized successfully!');
+        
+    } catch (error) {
+        console.error('❌ Failed to initialize section system:', error);
+        
+        // 폴백: 로딩 메시지를 오류 메시지로 변경
+        const loadingMessage = document.getElementById('loading-message');
+        if (loadingMessage) {
+            loadingMessage.innerHTML = '⚠️ 섹션 로드 중 오류가 발생했습니다. 페이지를 새로고침해주세요.';
+            loadingMessage.style.color = '#ff6b6b';
+        }
+    }
+}
 
 /**
  * 윈도우 로드 완료 시 추가 초기화

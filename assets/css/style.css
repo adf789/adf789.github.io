@@ -100,36 +100,83 @@ body::before {
 
 .minecraft-logo {
     font-family: monospace;
-  white-space: pre;
-  font-size: 20px;
-  color: #0ff;
-  text-shadow:
-    0 0 5px #0ff,
-    0 0 10px #0ff,
-    0 0 20px #0ff,
-    0 0 40px #0ff,
-    0 0 80px #0ff,
-    0 0 90px #0ff,
-    0 0 100px #0ff;
-  animation: flicker 1.5s infinite alternate;
+    white-space: pre;
+    font-size: 20px;
+    color: #0ff;
+    text-shadow:
+        0 0 5px #0ff,
+        0 0 10px #0ff,
+        0 0 20px #0ff,
+        0 0 40px #0ff,
+        0 0 80px #0ff,
+        0 0 90px #0ff,
+        0 0 100px #0ff;
+    animation: flicker 1.5s infinite alternate;
+    
+    /* GPU 가속 최적화 */
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
 }
 
+/* 데스크톱용 복잡한 애니메이션 */
 @keyframes flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-    opacity: 1;
-    text-shadow:
-      0 0 5px #0ff,
-      0 0 10px #0ff,
-      0 0 20px #0ff,
-      0 0 40px #0ff,
-      0 0 80px #0ff,
-      0 0 90px #0ff,
-      0 0 100px #0ff;
-  }
-  20%, 24%, 55% {
-    opacity: 0.3;
-    text-shadow: none;
-  }
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow:
+            0 0 5px #0ff,
+            0 0 10px #0ff,
+            0 0 20px #0ff,
+            0 0 40px #0ff,
+            0 0 80px #0ff,
+            0 0 90px #0ff,
+            0 0 100px #0ff;
+    }
+    20%, 24%, 55% {
+        opacity: 0.3;
+        text-shadow: none;
+    }
+}
+
+/* 모바일용 단순화된 애니메이션 */
+@keyframes flickerMobile {
+    0%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+    }
+    50% {
+        opacity: 0.7;
+        text-shadow: 0 0 5px #0ff;
+    }
+}
+
+/* 모바일 최적화 */
+@media (max-width: 768px) {
+    .minecraft-logo {
+        /* 단순화된 텍스트 섀도우 */
+        text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+        /* 부드러운 애니메이션으로 변경 */
+        animation: flickerMobile 2s ease-in-out infinite;
+        /* 성능 최적화 */
+        transform: translate3d(0, 0, 0);
+        animation-fill-mode: both;
+    }
+}
+
+/* 매우 작은 모바일 화면 추가 최적화 */
+@media (max-width: 480px) {
+    .minecraft-logo {
+        text-shadow: 0 0 8px #0ff;
+        animation-duration: 2.5s;
+    }
+}
+
+/* 배터리 절약 모드 또는 모션 감소 설정 시 */
+@media (prefers-reduced-motion: reduce) {
+    .minecraft-logo {
+        animation: none;
+        text-shadow: 0 0 10px #0ff;
+    }
 }
 
 .name {
