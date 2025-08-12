@@ -38,28 +38,35 @@ function updateTitle() {
     
     let rankText = '';
     let tooltipText = '';
+    let expText = `${exp.years}년 ${exp.months}개월`;
     
     // 마인크래프트 블록 색상별 동그라미 랭크 시스템
     if (exp.years >= 15) {
-        rankText = '⚫ BEDROCK ENGINEER (15년+)';
+        rankText = '⚫ BEDROCK ENGINEER';
     } else if (exp.years >= 10) {
-        rankText = '🔵 DIAMOND ENGINEER (10-15년)';
+        rankText = '🔵 DIAMOND ENGINEER';
     } else if (exp.years >= 7) {
-        rankText = '🟣 OBSIDIAN ENGINEER (7-10년)';
+        rankText = '🟣 OBSIDIAN ENGINEER';
     } else if (exp.years >= 5) {
-        rankText = '🟡 GOLD ENGINEER (5-7년)';
+        rankText = '🟡 GOLD ENGINEER';
     } else if (exp.years >= 3) {
-        rankText = '⚪ IRON ENGINEER (3-5년)';
+        rankText = '⚪ IRON ENGINEER';
     } else if (exp.years >= 1) {
-        rankText = '🔘 STONE ENGINEER (1-3년)';
+        rankText = '🔘 STONE ENGINEER';
     } else {
-        rankText = '🟤 DIRT ENGINEER (0-1년)';
+        rankText = '🟤 DIRT ENGINEER';
     }
 
-    tooltipText = '0-1년 : 🟤 DIRT<br>1-3년: 🔘 STONE<br>3-5년: ⚪ IRON<br>5-7년: 🟡 GOLD<br>7-10년: 🟣 OBSIDIAN<br>10-15년: 🔵 DIAMOND<br>15년+: ⚫ BEDROCK'
+    tooltipText = `0-1년 : 🟤 DIRT
+    1-3년: 🔘 STONE
+    3-5년: ⚪ IRON
+    5-7년: 🟡 GOLD
+    7-10년: 🟣 OBSIDIAN
+    10-15년: 🔵 DIAMOND
+    15년+: ⚫ BEDROCK`;
     
     // 타이틀 업데이트
-    titleElement.textContent = `🎮 GAME DEVELOPER • ${rankText} 🎮`;
+    titleElement.textContent = `🎮 GAME DEVELOPER • ${rankText} (${expText})🎮`;
     
     // 툴팁 업데이트 (브라우저 기본 툴팁 사용)
     titleElement.title = tooltipText;
