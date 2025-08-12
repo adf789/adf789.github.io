@@ -1,279 +1,4 @@
-// ==========================================================================
-// 이미지 모달 기능
-// ==========================================================================
-
 /**
- * 이미지 모달 열기
- * @param {HTMLImageElement} imgElement - 클릭된 이미지 요소
- */
-function openImageModal(imgElement) {
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImage');
-    const modalCaption = document.getElementById('modalCaption');
-    
-    if (modal && modalImg && modalCaption) {
-        modal.classList.add('active');
-        modalImg.src = imgElement.src;
-        modalImg.alt = imgElement.alt;
-        
-        // 캡션 설정 (이미지의 alt 텍스트 또는 부모의 캡션 사용)
-        const captionElement = imgElement.parentElement.querySelector('.media-caption');
-        modalCaption.textContent = captionElement ? captionElement.textContent : imgElement.alt;
-        
-        // ESC 키로 닫기 가능하도록 이벤트 리스너 추가
-        document.addEventListener('keydown', handleModalKeydown);
-        
-        console.log('Image modal opened:', imgElement.alt);
-    }
-}
-
-/**
- * 이미지 모달 닫기
- */
-function closeImageModal() {
-    const modal = document.getElementById('imageModal');
-    if (modal) {
-        modal.classList.remove('active');
-        
-        // 키보드 이벤트 리스너 제거
-        document.removeEventListener('keydown', handleModalKeydown);
-        
-        console.log('Image modal closed');
-    }
-}
-
-/**
- * 모달에서 키보드 이벤트 처리
- * @param {KeyboardEvent} event - 키보드 이벤트
- */
-function handleModalKeydown(event) {
-    if (event.key === 'Escape') {
-        closeImageModal();
-    }
-}
-
-// ==========================================================================
-// 이미지 지연 로딩 (Lazy Loading)
-// ==========================================================================
-
-/**
- * 이미지 지연 로딩 초기화
- */
-function initLazyLoading() {
-    // Intersection Observer가 지원되는 경우에만 사용
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    
-                    // data-src가 있으면 src로 이동 (지연 로딩)
-                    if (img.dataset.src) {
-                        img.src = img.dataset.src;
-                        img.removeAttribute('data-src');
-                    }
-                    
-                    // 로딩 클래스 제거
-                    img.classList.remove('lazy-loading');
-                    img.classList.add('lazy-loaded');
-                    
-                    // 관찰 중지
-                    observer.unobserve(img);
-                }
-            });
-        });
-
-        // 지연 로딩할 이미지들 관찰 시작
-        document.querySelectorAll('img[data-src]').forEach(img => {
-            img.classList.add('lazy-loading');
-            imageObserver.observe(img);
-        });
-    }
-}
-
-// ==========================================================================
-// 이미지 오류 처리
-// ==========================================================================
-
-/**
- * 이미지 로딩 실패 시 폴백 처리
- */
-function handleImageErrors() {
-    const images = document.querySelectorAll('img');
-    
-    images.forEach(img => {
-        // 이미 onerror가 설정되어 있지 않은 경우에만 추가
-        if (!img.onerror) {
-            img.onerror = function() {
-                console.log('Image failed to load:', this.src);
-                
-                // 폴백 이미지가 있는 경우 표시
-                const fallback = this.nextElementSibling;
-                if (fallback && fallback.classList.contains('image-fallback')) {
-                    this.style.display = 'none';
-                    fallback.style.display = 'block';
-                }
-                
-                // 또는 기본 이미지로 대체
-                // this.src = 'assets/images/placeholder.png';
-            };
-        }
-    });
-}
-
-// ==========================================================================
-// 미디어 갤러리 기능
-// ==========================================================================
-
-/**
- * 미디어 갤러리 초기화
- */
-function initMediaGallery() {
-    // 비디오 자동재생 방지 및 로딩 최적화
-    const videos = document.querySelectorAll('video');
-    videos.forEach(video => {
-        // 모바일에서 자동재생 방지
-        if (getDeviceType() === 'mobile') {
-            video.preload = 'metadata';
-        }
-        
-        // 비디오 로딩 오류 처리
-        video.onerror = function() {
-            console.log('Video failed to load:', this.src);
-            const fallback = this.nextElementSibling;
-            if (fallback && fallback.classList.contains('image-fallback')) {
-                this.style.display = 'none';
-                fallback.style.display = 'block';
-            }
-        };
-    });
-    
-    // 이미지 클릭 이벤트 설정
-    const galleryImages = document.querySelectorAll('.media-item img');
-    galleryImages.forEach(img => {
-        img.style.cursor = 'pointer';
-        img.title = '클릭하여 크게 보기';
-    });
-}
-
-// ==========================================================================
-// 아이콘 로딩 최적화
-// ==========================================================================
-
-/**
- * 기술 아이콘 로딩 최적화
- */
-function optimizeTechIcons() {
-    const techIcons = document.querySelectorAll('.tech-icon');
-    
-    techIcons.forEach(icon => {
-        // 아이콘 로딩 실패 시 숨김 처리
-        icon.onerror = function() {
-            this.style.display = 'none';
-            console.log('Tech icon failed to load:', this.src);
-        };
-        
-        // 아이콘 로딩 성공 시 애니메이션 효과
-        icon.onload = function() {
-            this.style.opacity = '0';
-            this.style.transition = 'opacity 0.3s ease';
-            setTimeout(() => {
-                this.style.opacity = '1';
-            }, 100);
-        };
-    });
-}
-
-// ==========================================================================
-// 이벤트 리스너 및 초기화 (업데이트)
-// ==========================================================================
-
-/**
- * 페이지 로드 완료 시 초기화 (업데이트된 버전)
- */
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎮 Portfolio initialized!');
-    
-    // 콘솔 아트 출력
-    displayConsoleArt();
-    
-    // 타이틀 업데이트
-    setTimeout(() => {
-        updateTitle();
-    }, 100);
-    
-    // 애니메이션 초기화
-    setTimeout(() => {
-        initScrollAnimations();
-        animateSkillBars();
-    }, 300);
-    
-    // 미디어 관련 기능 초기화
-    setTimeout(() => {
-        initMediaGallery();
-        initLazyLoading();
-        handleImageErrors();
-        optimizeTechIcons();
-    }, 500);
-    
-    // 매일 자정에 경력 업데이트
-    const now = new Date();
-    const tomorrow = new Date(now);
-    tomorrow.setDate(now.getDate() + 1);
-    tomorrow.setHours(0, 0, 0, 0);
-    const msUntilMidnight = tomorrow.getTime() - now.getTime();
-    
-    setTimeout(() => {
-        updateTitle();
-        // 이후 24시간마다 업데이트
-        setInterval(updateTitle, 24 * 60 * 60 * 1000);
-    }, msUntilMidnight);
-});
-
-/**
- * 윈도우 로드 완료 시 추가 초기화 (업데이트된 버전)
- */
-window.addEventListener('load', function() {
-    console.log('🚀 All resources loaded!');
-    
-    // 최종 타이틀 업데이트 확인
-    setTimeout(() => {
-        if (document.getElementById('dynamic-title').textContent.includes('CALCULATING')) {
-            updateTitle();
-        }
-    }, 200);
-    
-    // 모든 이미지가 로드된 후 최종 체크
-    const images = document.querySelectorAll('img');
-    let loadedImages = 0;
-    
-    images.forEach(img => {
-        if (img.complete) {
-            loadedImages++;
-        } else {
-            img.addEventListener('load', () => {
-                loadedImages++;
-                if (loadedImages === images.length) {
-                    console.log('📸 All images loaded successfully!');
-                }
-            });
-        }
-    });
-});
-
-// ==========================================================================
-// 전역 함수 노출 (HTML에서 호출용) - 업데이트
-// ==========================================================================
-
-// 기존 함수들
-window.toggleDetails = toggleDetails;
-window.smoothScrollTo = smoothScrollTo;
-
-// 새로 추가된 함수들
-window.openImageModal = openImageModal;
-window.closeImageModal = closeImageModal;
-
-console.log('🎯 Main.js with media features loaded successfully!');/**
  * 마인크래프트 스타일 게임 개발자 포트폴리오
  * JavaScript 메인 파일
  */
@@ -395,6 +120,60 @@ function toggleDetails(projectId) {
 }
 
 // ==========================================================================
+// 이미지 모달 기능
+// ==========================================================================
+
+/**
+ * 이미지 모달 열기
+ * @param {HTMLImageElement} imgElement - 클릭된 이미지 요소
+ */
+function openImageModal(imgElement) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalCaption = document.getElementById('modalCaption');
+    
+    if (modal && modalImg && modalCaption) {
+        modal.classList.add('active');
+        modalImg.src = imgElement.src;
+        modalImg.alt = imgElement.alt;
+        
+        // 캡션 설정 (이미지의 alt 텍스트 또는 부모의 캡션 사용)
+        const captionElement = imgElement.parentElement.querySelector('.media-caption');
+        modalCaption.textContent = captionElement ? captionElement.textContent : imgElement.alt;
+        
+        // ESC 키로 닫기 가능하도록 이벤트 리스너 추가
+        document.addEventListener('keydown', handleModalKeydown);
+        
+        console.log('Image modal opened:', imgElement.alt);
+    }
+}
+
+/**
+ * 이미지 모달 닫기
+ */
+function closeImageModal() {
+    const modal = document.getElementById('imageModal');
+    if (modal) {
+        modal.classList.remove('active');
+        
+        // 키보드 이벤트 리스너 제거
+        document.removeEventListener('keydown', handleModalKeydown);
+        
+        console.log('Image modal closed');
+    }
+}
+
+/**
+ * 모달에서 키보드 이벤트 처리
+ * @param {KeyboardEvent} event - 키보드 이벤트
+ */
+function handleModalKeydown(event) {
+    if (event.key === 'Escape') {
+        closeImageModal();
+    }
+}
+
+// ==========================================================================
 // 스무스 스크롤 기능
 // ==========================================================================
 
@@ -443,10 +222,6 @@ function initScrollAnimations() {
     });
 }
 
-// ==========================================================================
-// 스킬 바 애니메이션
-// ==========================================================================
-
 /**
  * 스킬 레벨 바 애니메이션
  */
@@ -477,6 +252,123 @@ function animateSkillBars() {
 }
 
 // ==========================================================================
+// 이미지 지연 로딩 및 오류 처리
+// ==========================================================================
+
+/**
+ * 이미지 지연 로딩 초기화
+ */
+function initLazyLoading() {
+    // Intersection Observer가 지원되는 경우에만 사용
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    
+                    // data-src가 있으면 src로 이동 (지연 로딩)
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                    }
+                    
+                    // 로딩 클래스 제거
+                    img.classList.remove('lazy-loading');
+                    img.classList.add('lazy-loaded');
+                    
+                    // 관찰 중지
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        // 지연 로딩할 이미지들 관찰 시작
+        document.querySelectorAll('img[data-src]').forEach(img => {
+            img.classList.add('lazy-loading');
+            imageObserver.observe(img);
+        });
+    }
+}
+
+/**
+ * 이미지 로딩 실패 시 폴백 처리
+ */
+function handleImageErrors() {
+    const images = document.querySelectorAll('img');
+    
+    images.forEach(img => {
+        // 이미 onerror가 설정되어 있지 않은 경우에만 추가
+        if (!img.onerror) {
+            img.onerror = function() {
+                console.log('Image failed to load:', this.src);
+                
+                // 폴백 이미지가 있는 경우 표시
+                const fallback = this.nextElementSibling;
+                if (fallback && fallback.classList.contains('image-fallback')) {
+                    this.style.display = 'none';
+                    fallback.style.display = 'block';
+                }
+            };
+        }
+    });
+}
+
+/**
+ * 미디어 갤러리 초기화
+ */
+function initMediaGallery() {
+    // 비디오 자동재생 방지 및 로딩 최적화
+    const videos = document.querySelectorAll('video');
+    videos.forEach(video => {
+        // 모바일에서 자동재생 방지
+        if (getDeviceType() === 'mobile') {
+            video.preload = 'metadata';
+        }
+        
+        // 비디오 로딩 오류 처리
+        video.onerror = function() {
+            console.log('Video failed to load:', this.src);
+            const fallback = this.nextElementSibling;
+            if (fallback && fallback.classList.contains('image-fallback')) {
+                this.style.display = 'none';
+                fallback.style.display = 'block';
+            }
+        };
+    });
+    
+    // 이미지 클릭 이벤트 설정
+    const galleryImages = document.querySelectorAll('.media-item img');
+    galleryImages.forEach(img => {
+        img.style.cursor = 'pointer';
+        img.title = '클릭하여 크게 보기';
+    });
+}
+
+/**
+ * 기술 아이콘 로딩 최적화
+ */
+function optimizeTechIcons() {
+    const techIcons = document.querySelectorAll('.tech-icon');
+    
+    techIcons.forEach(icon => {
+        // 아이콘 로딩 실패 시 숨김 처리
+        icon.onerror = function() {
+            this.style.display = 'none';
+            console.log('Tech icon failed to load:', this.src);
+        };
+        
+        // 아이콘 로딩 성공 시 애니메이션 효과
+        icon.onload = function() {
+            this.style.opacity = '0';
+            this.style.transition = 'opacity 0.3s ease';
+            setTimeout(() => {
+                this.style.opacity = '1';
+            }, 100);
+        };
+    });
+}
+
+// ==========================================================================
 // 콘솔 아트
 // ==========================================================================
 
@@ -500,58 +392,6 @@ function displayConsoleArt() {
     
     console.log(art, 'color: #4CAF50; font-family: monospace; font-size: 12px;');
 }
-
-// ==========================================================================
-// 이벤트 리스너 및 초기화
-// ==========================================================================
-
-/**
- * 페이지 로드 완료 시 초기화
- */
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎮 Portfolio initialized!');
-    
-    // 콘솔 아트 출력
-    displayConsoleArt();
-    
-    // 타이틀 업데이트
-    setTimeout(() => {
-        updateTitle();
-    }, 100);
-    
-    // 애니메이션 초기화
-    setTimeout(() => {
-        initScrollAnimations();
-        animateSkillBars();
-    }, 300);
-    
-    // 매일 자정에 경력 업데이트
-    const now = new Date();
-    const tomorrow = new Date(now);
-    tomorrow.setDate(now.getDate() + 1);
-    tomorrow.setHours(0, 0, 0, 0);
-    const msUntilMidnight = tomorrow.getTime() - now.getTime();
-    
-    setTimeout(() => {
-        updateTitle();
-        // 이후 24시간마다 업데이트
-        setInterval(updateTitle, 24 * 60 * 60 * 1000);
-    }, msUntilMidnight);
-});
-
-/**
- * 윈도우 로드 완료 시 추가 초기화
- */
-window.addEventListener('load', function() {
-    console.log('🚀 All resources loaded!');
-    
-    // 최종 타이틀 업데이트 확인
-    setTimeout(() => {
-        if (document.getElementById('dynamic-title').textContent.includes('CALCULATING')) {
-            updateTitle();
-        }
-    }, 200);
-});
 
 // ==========================================================================
 // 유틸리티 함수들
@@ -589,6 +429,83 @@ function monitorPerformance() {
     }
 }
 
+// ==========================================================================
+// 이벤트 리스너 및 초기화
+// ==========================================================================
+
+/**
+ * 페이지 로드 완료 시 초기화
+ */
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🎮 Portfolio initialized!');
+    
+    // 콘솔 아트 출력
+    displayConsoleArt();
+    
+    // 타이틀 업데이트
+    setTimeout(() => {
+        updateTitle();
+    }, 100);
+    
+    // 애니메이션 초기화
+    setTimeout(() => {
+        initScrollAnimations();
+        animateSkillBars();
+    }, 300);
+    
+    // 미디어 관련 기능 초기화
+    setTimeout(() => {
+        initMediaGallery();
+        initLazyLoading();
+        handleImageErrors();
+        optimizeTechIcons();
+    }, 500);
+    
+    // 매일 자정에 경력 업데이트
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0);
+    const msUntilMidnight = tomorrow.getTime() - now.getTime();
+    
+    setTimeout(() => {
+        updateTitle();
+        // 이후 24시간마다 업데이트
+        setInterval(updateTitle, 24 * 60 * 60 * 1000);
+    }, msUntilMidnight);
+});
+
+/**
+ * 윈도우 로드 완료 시 추가 초기화
+ */
+window.addEventListener('load', function() {
+    console.log('🚀 All resources loaded!');
+    
+    // 최종 타이틀 업데이트 확인
+    setTimeout(() => {
+        if (document.getElementById('dynamic-title').textContent.includes('CALCULATING')) {
+            updateTitle();
+        }
+    }, 200);
+    
+    // 모든 이미지가 로드된 후 최종 체크
+    const images = document.querySelectorAll('img');
+    let loadedImages = 0;
+    
+    images.forEach(img => {
+        if (img.complete) {
+            loadedImages++;
+        } else {
+            img.addEventListener('load', () => {
+                loadedImages++;
+                if (loadedImages === images.length) {
+                    console.log('📸 All images loaded successfully!');
+                }
+            });
+        }
+    });
+});
+
 // 개발 모드에서 성능 모니터링 활성화
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
     monitorPerformance();
@@ -598,8 +515,10 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
 // 전역 함수 노출 (HTML에서 호출용)
 // ==========================================================================
 
-// toggleDetails 함수를 전역으로 노출
+// 전역으로 노출되어야 하는 함수들
 window.toggleDetails = toggleDetails;
 window.smoothScrollTo = smoothScrollTo;
+window.openImageModal = openImageModal;
+window.closeImageModal = closeImageModal;
 
 console.log('🎯 Main.js loaded successfully!');

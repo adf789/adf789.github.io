@@ -1,290 +1,189 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/5f205b3a-73c2-472c-b052-82b95bdf36b7/deploy-status)](https://app.netlify.com/sites/sleepy-bhabha-00eedf/deploys)
+# 🎮 마인크래프트 스타일 게임 개발자 포트폴리오
 
-### Hey guys, how are you? 🍽 🇧🇷
+마인크래프트의 픽셀아트 스타일을 모티브로 한 반응형 게임 개발자 포트폴리오입니다.
 
-As you know, this is a 100% free template, I earn nothing to maintain it. So, I have this idea and hope you can join me for a good cause.
+## 🌟 주요 기능
 
-Every donation that I receive from this project from now on (04/11/21), I'll donate to NGOs that work against hunger in Brazil.
+### 🚀 **동적 경력 시스템**
+- 실시간으로 경력 연수를 계산하여 표시
+- 마인크래프트 블록 테마의 등급 시스템 (흙 → 다이아몬드 → 베드락)
+- 호버 시 등급 설명 툴팁 표시
 
-If you feel the template is worth it and you could help people in need, here is the link:
+### 🎨 **마인크래프트 스타일 디자인**
+- 픽셀아트 느낌의 색상과 그라데이션
+- 3D 블록 스타일 버튼과 카드
+- 구름이 움직이는 하늘 배경 애니메이션
+- 마인크래프트 인벤토리 스타일 UI
 
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SAKL66RSDGH48&source=url)
+### 📱 **완전 반응형**
+- 모바일, 태블릿, 데스크톱 모든 디바이스 지원
+- 터치 친화적인 버튼 크기
+- 가독성을 고려한 폰트 크기 조정
 
-Thank you!
+### ⚡ **인터랙티브 요소**
+- 프로젝트 상세 정보 토글 기능
+- 스킬 바 애니메이션
+- 부드러운 스크롤 애니메이션
+- 호버 효과와 트랜지션
 
-# Jekflix Template
-
-![Jekflix Template Cover Image](https://res.cloudinary.com/dm7h7e8xj/image/upload/v1505354182/jekflix-logo_mfngps.png)
-
-See the [demo here](https://jekflix.rossener.com/).
-
-## What is it?
-
-A theme for Jekyll inspired by Netflix panel for who loves movies and series and would like to have a blog with this cool appearance.
-
-![Jekflix Screenshot Image](https://res.cloudinary.com/dm7h7e8xj/image/upload/v1566390829/jekflix-screenshot-2_zfiog2.jpg)
-
-## Features
-
-- [Live Search](https://github.com/thiagorossener/jekflix-template/wiki/Features#live-search)
-- [Estimated Reading Time](https://github.com/thiagorossener/jekflix-template/wiki/Features#estimated-reading-time)
-- [Reading Progress Bar](https://github.com/thiagorossener/jekflix-template/wiki/Features#reading-progress-bar) *(optional)*
-- ["New Post" tag](https://github.com/thiagorossener/jekflix-template/wiki/Features#new-post-tag)
-- [Load images on demand](https://github.com/thiagorossener/jekflix-template/wiki/Features#load-images-on-demand)
-- [Push Menu](https://github.com/thiagorossener/jekflix-template/wiki/Features#push-menu)
-- [SVG icons](https://github.com/thiagorossener/jekflix-template/wiki/Features#svg-icons)
-- [Shell script to create posts](https://github.com/thiagorossener/jekflix-template/wiki/Features#shell-script-to-create-posts)
-- [Tags page](https://github.com/thiagorossener/jekflix-template/wiki/Features#tags-page)
-- [About page](https://github.com/thiagorossener/jekflix-template/wiki/Features#about-page)
-- [Contact page](https://github.com/thiagorossener/jekflix-template/wiki/Features#contact-page)
-- [404 error page](https://github.com/thiagorossener/jekflix-template/wiki/Features#404-error-page)
-- [Feed RSS](https://github.com/thiagorossener/jekflix-template/wiki/Features#feed-rss)
-- [Disqus](https://github.com/thiagorossener/jekflix-template/wiki/Features#disqus) *(optional)*
-- [Featured post](https://github.com/thiagorossener/jekflix-template/wiki/Features#featured-post) *(optional)*
-- [Home page pagination](https://github.com/thiagorossener/jekflix-template/wiki/Features#home-page-pagination) *(optional)*
-- [Posts sidebar](https://github.com/thiagorossener/jekflix-template/wiki/Features#posts-sidebar) *(optional)*
-- [Paginated posts](https://github.com/thiagorossener/jekflix-template/wiki/Features#paginated-posts) *(optional)*
-- ["Before you go" modal](https://github.com/thiagorossener/jekflix-template/wiki/Features#before-you-go-modal) *(optional)*
-- [Post recommendation](https://github.com/thiagorossener/jekflix-template/wiki/Features#post-recommendation)
-- [Netlify CMS ready](https://github.com/thiagorossener/jekflix-template/wiki/Features#netlify-cms-ready)
-- [Translations](https://github.com/thiagorossener/jekflix-template/wiki/setup#translations) **new!**
-- [Math Expressions](https://github.com/thiagorossener/jekflix-template/wiki/Features#math-expressions) *(optional)* **new!**
-
-## SEO
-
-- Google Analytics
-- Meta tags
-- JSON-LD
-- Sitemap.xml
-- Social Media ready
-
-## Quick Install
-
-In the case you're installing to existing Jekyll project, add this line to your project's `Gemfile`:
+## 📁 파일 구조
 
 ```
-gem "jekflix"
+portfolio/
+├── index.html          # 메인 HTML 파일
+├── css/
+│   └── style.css       # 메인 CSS 파일
+├── js/
+│   └── main.js         # JavaScript 기능
+├── README.md           # 프로젝트 설명
+└── images/             # 이미지 파일 (선택사항)
 ```
 
-Add this line to your project's `_config.yml`:
+## 🛠️ 설치 및 사용법
 
-```
-theme: jekflix
-```
+### 1. **파일 다운로드**
+```bash
+# Git으로 클론하거나
+git clone https://github.com/yourusername/portfolio.git
 
-And then run:
-
-```
-$ bundle
+# 또는 ZIP 파일을 다운로드하여 압축 해제
 ```
 
-Or install it yourself as:
+### 2. **개인 정보 수정**
 
+#### **index.html에서 수정할 부분:**
+```html
+<!-- 개인 정보 -->
+<h1 class="name">김개발자</h1>  <!-- 본인 이름으로 변경 -->
+
+<!-- 연락처 정보 -->
+<a href="mailto:your-email@gmail.com" class="contact-item">📧 your-email@gmail.com</a>
+<a href="tel:010-1234-5678" class="contact-item">📱 010-1234-5678</a>
+<a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" class="contact-item">🔗 github.com/yourusername</a>
 ```
-$ gem install jekflix
+
+#### **main.js에서 수정할 부분:**
+```javascript
+// 경력 시작일 설정
+const careerStartDate = new Date('2019-03-01'); // 본인의 실제 시작일로 변경
 ```
 
-### Theme Colors
+### 3. **GitHub Pages 배포**
 
-Create the file `/assets/css/styles.scss` and add:
+#### **Repository 생성:**
+1. GitHub에서 `yourusername.github.io` 이름으로 Repository 생성
+2. 모든 파일을 업로드
 
+#### **배포:**
+```bash
+git add .
+git commit -m "Add Minecraft-style portfolio"
+git push origin main
 ```
+
+#### **GitHub Pages 활성화:**
+1. Repository → Settings → Pages
+2. Source: Deploy from a branch
+3. Branch: main 선택
+4. Save 클릭
+
+### 4. **접속 확인**
+```
+https://yourusername.github.io
+```
+
+## 🎯 커스터마이징 가이드
+
+### **색상 변경**
+`css/style.css`에서 주요 색상 변수들을 수정하세요:
+
+```css
+/* 주요 색상들 */
+--primary-green: #4CAF50;      /* 메인 그린 */
+--secondary-brown: #8B4513;    /* 나무 블록 색상 */
+--accent-yellow: #FFEB3B;      /* 강조 색상 */
+--text-blue: #1976D2;          /* 텍스트 블루 */
+```
+
+### **섹션 추가**
+새로운 섹션을 추가하려면:
+
+```html
+<div class="section">
+    <div class="section-header">
+        <div class="inventory-icon"></div>
+        <span>새로운 섹션</span>
+    </div>
+    <div class="section-content">
+        <!-- 내용 -->
+    </div>
+</div>
+```
+
+### **프로젝트 추가**
+새로운 프로젝트 카드:
+
+```html
+<div class="project-card">
+    <h3 class="project-title">프로젝트 이름</h3>
+    <div class="project-meta">
+        <span class="meta-item">📱 MOBILE</span>
+        <!-- 기타 메타 정보 -->
+    </div>
+    <div class="project-description">
+        프로젝트 설명...
+    </div>
+    <div class="tech-tags">
+        <span class="tech-tag">UNITY</span>
+        <!-- 기타 기술 태그 -->
+    </div>
+</div>
+```
+
+## 🔧 기술 스택
+
+- **HTML5**: 시맨틱 마크업
+- **CSS3**: Flexbox, Grid, 애니메이션
+- **Vanilla JavaScript**: ES6+ 문법 사용
+- **Google Fonts**: Orbitron, JetBrains Mono
+- **No Dependencies**: 외부 라이브러리 없음
+
+## 📊 성능 최적화
+
+- **이미지 최적화**: SVG 아이콘 사용
+- **CSS 최적화**: 중복 제거 및 압축
+- **JavaScript 최적화**: 지연 로딩 및 이벤트 최적화
+- **폰트 최적화**: Google Fonts 사전 로드
+
+## 🌐 브라우저 지원
+
+- ✅ Chrome 70+
+- ✅ Firefox 65+
+- ✅ Safari 12+
+- ✅ Edge 79+
+- ✅ Mobile Safari iOS 12+
+- ✅ Chrome Android 70+
+
+## 📝 라이선스
+
+이 프로젝트는 MIT 라이선스하에 배포됩니다. 자유롭게 사용, 수정, 배포할 수 있습니다.
+
+## 🤝 기여하기
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📞 문의
+
+프로젝트에 대한 질문이나 제안이 있으시면 언제든 연락주세요!
+
+- **Email**: your-email@gmail.com
+- **GitHub**: [@yourusername](https://github.com/yourusername)
+- **Portfolio**: [https://yourusername.github.io](https://yourusername.github.io)
+
 ---
----
 
-$themeColor: #ff0a16;
-$primaryDark: #141414;
-$accentDark: #ffffff;
-$lightGray: #f2f2f2;
-$texts: #333333;
-
-@import "jekflix";
-```
-
-Modify the variables above to change your theme colors.
-
-### Site configuration
-
-Below are some properties you can change in your project `_config.yml`, check the [documentation](https://github.com/thiagorossener/jekflix-template/wiki/settings) for more details.
-
-```
-# Site Settings
-name: Jekflix
-title: Jekflix | A blog theme for Jekyll
-description: Jekflix is a template for Jekyll inspired by Netflix and made by Thiago Rossener.
-tags:
-  - blog
-  - template
-  - jekyll
-  - theme
-  - netlify
-email: youremail@xyz.com
-disqus_username: disqus_username
-show_hero: true
-menu:
-  - title: Home
-    url: /
-  - title: About
-    url: /about
-  - title: Contact
-    url: /contact
-  - title: Feed
-    url: /feed.xml
-
-# Social Media Settings
-# Remove the item if you don't need it
-github_username: github_username
-facebook_username: facebook_username
-twitter_username: twitter_username
-instagram_username: instagram_username
-linkedin_username: linkedin_username
-medium_username: medium_username
-
-# Posts Settings
-show_time_bar: true
-show_modal_on_exit: false
-show_modal_on_finish_post: true
-two_columns_layout: true
-
-# Advanced Settings
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site
-google_analytics: "UA-XXXXXXXX-X"
-language: "en"
-categories_folder: category
-sent_message_url: "/contact/message-sent/"
-
-# Build settings
-markdown: kramdown
-highlighter: rouge
-permalink: /:title/
-collections:
-  authors:
-    output: true
-paginate_path: "/page/:num/"
-show_get_theme_btn: true
-use_logo: false
-
-# Content paginator
-paginate_content:
-  enabled: true
-  debug: false
-  collections:
-    - posts
-  auto: false
-  separator: "--page-break--"
-  permalink: "/:num/"
-  seo_canonical: true
-  properties:
-    part:
-      is_generated: true
-    last:
-      is_generated: true
-    single:
-      is_generated: true
-
-# SASS
-sass:
-  style: compressed
-
-# Plugins
-plugins:
-  - jekyll-paginate
-  - jekyll-paginate-content
-```
-
-## Setup
-
-In the case you're cloning this repo, follow those instructions:
-
-- [Environment](https://github.com/thiagorossener/jekflix-template/wiki/setup#environment)
-- [Installing template](https://github.com/thiagorossener/jekflix-template/wiki/setup#installing-template)
-- [Running local](https://github.com/thiagorossener/jekflix-template/wiki/setup#running-local)
-
-### Customization
-
-See the [settings documentation](https://github.com/thiagorossener/jekflix-template/wiki/settings) to customize layout, titles, social media and more.
-
-### Theme
-
-You can easily change the theme colors by changing the file `src/yml/theme.yml`, then running `gulp build` in your terminal.
-
-#### GitHub pages
-
-It's a known issue that you can't run Gulp when deploying the website into GitHub pages. So, you must change the theme colors and run `gulp build` locally, then push the changes into your repo, there is no other way.
-
-To see how your website is going to look like when you deploy it, run `bundle exec jekyll serve` locally and access `http://127.0.0.1:4000/`.
-
-## Posts
-
-Use the [Front Matter properties](https://github.com/thiagorossener/jekflix-template/wiki/post#front-matter-properties) to create posts.
-
-> **Note:** In the case you're cloning this repo, you can use the available [script](https://github.com/thiagorossener/jekflix-template/wiki/post#creating-a-post) to generate posts automatically.
-
-## Release notes
-
-### v3.1.1
-
-- Added `formspree_form_id` config
-- Bumped up dependencies
-- Fixed minor bugs
-
-### v3.1.0
-
-- Fixed hero URL, thanks to [@JoelSalzesson](https://github.com/JoelSalzesson)
-- Updated Google Analytics script, thanks to [@JHLeeeMe](https://github.com/JHLeeeMe)
-- Added MathJax library to render math expressions, thanks to [@XieGuochao](https://github.com/XieGuochao)
-
-### v3.0.2
-
-- Added assets folder
-
-### v3.0.1
-
-- Fixed post SVG icons
-
-### v3.0.0
-
-- Created theme `gem`
-- Enabled text translations
-- Added heading anchor links
-- Changed code highlight colors
-- Changed from Stylus to SASS
-
-### v2.0.1
-- Fixed bugs
-- Optimized to support disabled JS
-
-### v2.0.0
-- Added optional [sidebar](https://github.com/thiagorossener/jekflix-template/wiki/Features#posts-sidebar)
-- Added optional [Featured post](https://github.com/thiagorossener/jekflix-template/wiki/features#featured-post)
-- Added optional ["Before you go" modal](https://github.com/thiagorossener/jekflix-template/wiki/features#before-you-go-modal)
-- Added optional [post pagination](https://github.com/thiagorossener/jekflix-template/wiki/features#paginated-posts)
-- Added [post recommendation](https://github.com/thiagorossener/jekflix-template/wiki/features#post-recommendation)
-- Added meta keywords to improve SEO
-- Added JSON-LD to improve SEO
-- Changed pagination to be [optional](https://github.com/thiagorossener/jekflix-template/wiki/features#home-page-pagination)
-- Improved [Tags page](https://github.com/thiagorossener/jekflix-template/wiki/features#tags-page)
-- Cleaned up and improved [Front Matter properties](https://github.com/thiagorossener/jekflix-template/wiki/post#front-matter-properties)
-- Set up [Netlify CMS](https://github.com/thiagorossener/jekflix-template/wiki/features#netlify-cms-ready)
-- Improved customization settings
-- Minor design updates
-
-### v1.0.1
-- Fixed bugs
-- Upgraded to Gulp 4
-
-### v1.0.0
-- Initial release
-
-## Questions?
-
-File a [GitHub issue](https://github.com/thiagorossener/jekflix-template/issues/new) please.
-
-## Author
-
-[Thiago Rossener](https://rossener.com/)
-
-## License
-
-*Jekflix Template* is available under the MIT license. See the [LICENSE](https://github.com/thiagorossener/jekflix-template/blob/master/LICENSE) file for more info.
+⭐ 이 프로젝트가 도움이 되었다면 스타를 눌러주세요!
