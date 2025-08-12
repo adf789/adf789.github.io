@@ -1,14 +1,9 @@
-/**
- * 마인크래프트 스타일 게임 개발자 포트폴리오
- * JavaScript 메인 파일
- */
-
 // ==========================================================================
 // 경력 계산 및 타이틀 업데이트
 // ==========================================================================
 
-// 경력 시작일 설정 (여기서 본인의 실제 시작일로 변경하세요)
-const careerStartDate = new Date('2019-03-01'); // 예: 2019년 3월 1일 시작
+// 경력 시작일 설정
+const careerStartDate = new Date('2020-11-11');
 
 /**
  * 경력 기간 계산
@@ -47,28 +42,21 @@ function updateTitle() {
     // 마인크래프트 블록 색상별 동그라미 랭크 시스템
     if (exp.years >= 15) {
         rankText = '⚫ BEDROCK ENGINEER (15년+)';
-        tooltipText = '🗿 BEDROCK MASTER - 절대 파괴할 수 없는 최강의 블록 - 게임 개발의 전설적인 마스터 - 모든 기술과 경험을 겸비한 베테랑';
     } else if (exp.years >= 10) {
         rankText = '🔵 DIAMOND ENGINEER (10-15년)';
-        tooltipText = '💎 DIAMOND EXPERT - 가장 단단하고 희귀한 광물 - 최고급 도구와 무기 제작 가능 - 업계 최고 수준의 시니어 개발자';
     } else if (exp.years >= 7) {
         rankText = '🟣 OBSIDIAN ENGINEER (7-10년)';
-        tooltipText = '🌋 OBSIDIAN CRAFTSMAN - 용암과 물이 만나 생성되는 강력한 블록 - 네더 포털 제작에 필수적 - 고급 기술력을 보유한 전문가';
     } else if (exp.years >= 5) {
         rankText = '🟡 GOLD ENGINEER (5-7년)';
-        tooltipText = '✨ GOLD SPECIALIST - 희귀하고 빛나는 귀중한 광물 - 레드스톤 회로에 최적화 - 창의적 해결책을 제시하는 시니어';
     } else if (exp.years >= 3) {
         rankText = '⚪ IRON ENGINEER (3-5년)';
-        tooltipText = '⚡ IRON DEVELOPER - 실용적이고 든든한 중급 재료 - 대부분의 도구와 장비 제작 가능 - 안정적인 기술력을 갖춘 개발자';
     } else if (exp.years >= 1) {
         rankText = '🔘 STONE ENGINEER (1-3년)';
-        tooltipText = '🏗️ STONE BUILDER - 기본적이지만 견고한 건축 재료 - 다양한 구조물 제작의 기초 - 탄탄한 기본기를 갖춘 주니어';
     } else {
         rankText = '🟤 DIRT ENGINEER (0-1년)';
-        tooltipText = '🌱 DIRT DIGGER - 모든 것의 시작점이 되는 기본 블록 - 무한한 가능성을 품고 있음 - 열정 가득한 신입 개발자';
     }
 
-    tooltipText = '🟤 DIRT ENGINEER (0-1년)\n🔘 STONE ENGINEER (1-3년)\n⚪ IRON ENGINEER (3-5년)\n🟡 GOLD ENGINEER (5-7년)\n🟣 OBSIDIAN ENGINEER (7-10년)\n🔵 DIAMOND ENGINEER (10-15년)\n⚫ BEDROCK ENGINEER (15년+)'
+    tooltipText = '0-1년 : 🟤 DIRT<br>1-3년: 🔘 STONE<br>3-5년: ⚪ IRON<br>5-7년: 🟡 GOLD<br>7-10년: 🟣 OBSIDIAN<br>10-15년: 🔵 DIAMOND<br>15년+: ⚫ BEDROCK'
     
     // 타이틀 업데이트
     titleElement.textContent = `🎮 GAME DEVELOPER • ${rankText} 🎮`;
@@ -380,12 +368,12 @@ function optimizeTechIcons() {
 function displayConsoleArt() {
     const art = `
 %c
-██████╗ ███████╗██╗   ██╗███████╗██╗      ██████╗ ██████╗ ███████╗██████╗ 
-██╔══██╗██╔════╝██║   ██║██╔════╝██║     ██╔═══██╗██╔══██╗██╔════╝██╔══██╗
-██║  ██║█████╗  ██║   ██║█████╗  ██║     ██║   ██║██████╔╝█████╗  ██████╔╝
-██║  ██║██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║     ██║   ██║██╔═══╝ ██╔══╝  ██╔══██╗
-██████╔╝███████╗ ╚████╔╝ ███████╗███████╗╚██████╔╝██║     ███████╗██║  ██║
-╚═════╝ ╚══════╝  ╚═══╝  ╚══════╝╚══════╝ ╚═════╝ ╚═╝     ╚══════╝╚═╝  ╚═╝
+██████╗  █████╗ ███╗   ███╗███████╗    ██████╗ ███████╗██╗   ██╗
+██╔════╝ ██╔══██╗████╗ ████║██╔════╝    ██╔══██╗██╔════╝██║   ██║
+██║  ███╗███████║██╔████╔██║█████╗      ██║  ██║█████╗  ██║   ██║
+██║   ██║██╔══██║██║╚██╔╝██║██╔══╝      ██║  ██║██╔══╝  ╚██╗ ██╔╝
+╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗    ██████╔╝███████╗ ╚████╔╝ 
+ ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝    ╚═════╝ ╚══════╝  ╚═══╝
 
 🎮 포트폴리오에 방문해주셔서 감사합니다!
 💻 개발자 도구를 열어보시는 군요! 
@@ -882,5 +870,10 @@ window.openImageModal = openImageModal;
 window.closeImageModal = closeImageModal;
 window.exportToWord = exportToWord;
 window.exportToPDF = exportToPDF;
+
+// Export 함수 테스트
+console.log('Export functions loaded:');
+console.log('exportToWord:', typeof window.exportToWord);
+console.log('exportToPDF:', typeof window.exportToPDF);
 
 console.log('🎯 Main.js with export features loaded successfully!');
