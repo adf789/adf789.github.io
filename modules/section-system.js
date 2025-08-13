@@ -61,8 +61,7 @@ export class SectionSystem {
             }
 
             // 섹션 데이터 로드 시도
-            const loaded = await window.SectionLoader.loadSections();
-            if (loaded) {
+            if (await window.SectionLoader.loadSections()) {
                 this.hideLoadingMessage();
                 return true;
             }
