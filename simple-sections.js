@@ -353,32 +353,33 @@ function initSkillBarAnimation(section) {
         bar.style.transition = 'none';
         bar.style.width = '0%';
         
-        // 다음 프레임에서 트랜지션 활성화
-        requestAnimationFrame(() => {
-            bar.style.transition = 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
-        });
+        // // 다음 프레임에서 트랜지션 활성화
+        // requestAnimationFrame(() => {
+        //     bar.style.transition = 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        // });
     });
     
-    // 800ms 후 애니메이션 시작 (섹션 나타나는 애니메이션 완료 후)
-    setTimeout(() => {
-        skillBars.forEach((bar, index) => {
-            const targetWidth = bar.getAttribute('data-width') || '0%';
+    // // 800ms 후 애니메이션 시작 (섹션 나타나는 애니메이션 완료 후)
+    // setTimeout(() => {
+    //     skillBars.forEach((bar, index) => {
+    //         const targetWidth = bar.getAttribute('data-width') || '0%';
+    //         const startWidth = bar.style.width;
             
-            // 순차적으로 애니메이션 (300ms 간격)
-            setTimeout(() => {
-                console.log(`Animating bar ${index} to ${targetWidth}`);
-                bar.style.width = targetWidth;
+    //         // 순차적으로 애니메이션 (300ms 간격)
+    //         setTimeout(() => {
+    //             console.log(`Animating bar ${index}: ${startWidth} to ${targetWidth}`);
+    //             bar.style.width = targetWidth;
                 
-                // 애니메이션 완료 후 글로우 효과
-                bar.addEventListener('transitionend', () => {
-                    bar.style.boxShadow = '0 0 15px rgba(76, 175, 80, 0.8), inset 0 0 5px rgba(255, 255, 255, 0.3)';
-                    setTimeout(() => {
-                        bar.style.boxShadow = '';
-                    }, 1000);
-                }, { once: true });
-            }, index * 300);
-        });
-    }, 800);
+    //             // 애니메이션 완료 후 글로우 효과
+    //             bar.addEventListener('transitionend', () => {
+    //                 bar.style.boxShadow = '0 0 15px rgba(76, 175, 80, 0.8), inset 0 0 5px rgba(255, 255, 255, 0.3)';
+    //                 setTimeout(() => {
+    //                     bar.style.boxShadow = '';
+    //                 }, 1000);
+    //             }, { once: true });
+    //         }, index * 300);
+    //     });
+    // }, 800);
 }
 
 // 전역으로 노출
