@@ -59,6 +59,55 @@
     <!-- JavaScript -->
     <script src="assets/js/main.js"></script>
     
+    <!-- 전역 함수 정의 (모듈 로딩 전 즉시 사용 가능) -->
+    <script>
+        // toggleDetails 함수 즉시 정의
+        window.toggleDetails = function(projectId) {
+            // UIInteractions가 로드되면 해당 인스턴스 사용, 아니면 기본 동작
+            if (window.UIInteractions) {
+                window.UIInteractions.toggleDetails(projectId);
+            } else {
+                // 폴백: 기본 토글 동작
+                const details = document.getElementById(projectId);
+                if (details) {
+                    const isVisible = details.style.display === 'block';
+                    details.style.display = isVisible ? 'none' : 'block';
+                    
+                    const button = document.querySelector(`[onclick="toggleDetails('${projectId}')"]`);
+                    if (button) {
+                        button.textContent = isVisible ? 'VIEW TECHNICAL DETAILS' : 'HIDE TECHNICAL DETAILS';
+                    }
+                }
+            }
+        };
+        
+        // 이미지 모달 함수들도 즉시 정의
+        window.openImageModal = function(img) {
+            if (window.UIInteractions) {
+                window.UIInteractions.openImageModal(img);
+            }
+        };
+        
+        window.closeImageModal = function() {
+            if (window.UIInteractions) {
+                window.UIInteractions.closeImageModal();
+            } else {
+                // 폴백: 기본 모달 닫기
+                const modal = document.getElementById('imageModal');
+                if (modal) modal.style.display = 'none';
+            }
+        };
+    </script>
+    
+    <!-- Modules (load after main.js) -->
+    <script type="module" src="modules/career-manager.js"></script>
+    <script type="module" src="modules/ui-interactions.js"></script>
+    <script type="module" src="modules/animations.js"></script>
+    <script type="module" src="modules/media-manager.js"></script>
+    <script type="module" src="modules/performance-monitor.js"></script>
+    <script type="module" src="modules/content-generator.js"></script>
+    <script type="module" src="modules/section-system.js"></script>
+    
     <!-- 이미지 모달 -->
     <div id="imageModal" class="modal" onclick="closeImageModal()">
         <div class="modal-content">

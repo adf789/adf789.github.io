@@ -1,0 +1,13 @@
+# MIME 타입 설정
+AddType application/javascript .js
+AddType text/javascript .js
+
+# 모듈 스크립트 MIME 타입
+<Files "*.js">
+    Header set Content-Type "application/javascript"
+</Files>
+
+# CORS 설정 (로컬 개발용)
+Header add Access-Control-Allow-Origin "*"
+Header add Access-Control-Allow-Methods "GET, POST, OPTIONS"
+Header add Access-Control-Allow-Headers "Content-Type"

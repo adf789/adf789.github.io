@@ -172,6 +172,59 @@ public class UIManager : MonoBehaviour
                 </div>
             </div>
         `
+    },
+    {
+        title: "CONTACT & SOCIAL",
+        content: `
+            <div style="text-align: center; padding: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin: 20px 0;">
+                    <div style="background: linear-gradient(145deg, #4CAF50, #2E7D32); padding: 15px; border-radius: 8px; color: white;">
+                        <h4 style="margin: 0 0 10px 0;">📧 Email</h4>
+                        <p style="margin: 0;">kpoint776@email.com</p>
+                    </div>
+                    <div style="background: linear-gradient(145deg, #2196F3, #1976D2); padding: 15px; border-radius: 8px; color: white;">
+                        <h4 style="margin: 0 0 10px 0;">📱 Phone</h4>
+                        <p style="margin: 0;">010-7160-2440</p>
+                    </div>
+                    <div style="background: linear-gradient(145deg, #FF9800, #F57C00); padding: 15px; border-radius: 8px; color: white;">
+                        <h4 style="margin: 0 0 10px 0;">🔗 GitHub</h4>
+                        <p style="margin: 0;">github.com/adf789</p>
+                    </div>
+                </div>
+                <p style="margin-top: 30px; color: #666; font-style: italic;">
+                    💼 새로운 기회와 협업에 언제나 열려있습니다!
+                </p>
+            </div>
+        `
+    },
+    {
+        title: "CAREER TIMELINE",
+        content: `
+            <div style="position: relative; padding-left: 30px;">
+                <div style="position: absolute; left: 15px; top: 0; bottom: 0; width: 2px; background: #1976D2;"></div>
+                
+                <div style="position: relative; margin-bottom: 30px;">
+                    <div style="position: absolute; left: -22px; top: 5px; width: 12px; height: 12px; background: #4CAF50; border-radius: 50%;"></div>
+                    <h4 style="color: #1976D2; margin: 0 0 5px 0;">2023 - 현재</h4>
+                    <h5 style="margin: 0 0 10px 0;">시니어 게임 개발자</h5>
+                    <p style="margin: 0; color: #666; font-size: 0.9em;">모바일 RPG 프로젝트 리드, UI 프레임워크 개발</p>
+                </div>
+                
+                <div style="position: relative; margin-bottom: 30px;">
+                    <div style="position: absolute; left: -22px; top: 5px; width: 12px; height: 12px; background: #2196F3; border-radius: 50%;"></div>
+                    <h4 style="color: #1976D2; margin: 0 0 5px 0;">2021 - 2023</h4>
+                    <h5 style="margin: 0 0 10px 0;">게임 개발자</h5>
+                    <p style="margin: 0; color: #666; font-size: 0.9em;">Unity 기반 모바일 게임 개발, 성능 최적화</p>
+                </div>
+                
+                <div style="position: relative; margin-bottom: 30px;">
+                    <div style="position: absolute; left: -22px; top: 5px; width: 12px; height: 12px; background: #FF9800; border-radius: 50%;"></div>
+                    <h4 style="color: #1976D2; margin: 0 0 5px 0;">2020 - 2021</h4>
+                    <h5 style="margin: 0 0 10px 0;">주니어 개발자</h5>
+                    <p style="margin: 0; color: #666; font-size: 0.9em;">게임 UI 개발, 클라이언트 프로그래밍 학습</p>
+                </div>
+            </div>
+        `
     }
 ];
 
@@ -259,5 +312,45 @@ function addSimpleSection(title, content) {
 // 전역으로 노출
 window.loadSimpleSections = loadSimpleSections;
 window.addSimpleSection = addSimpleSection;
+
+// 즉시 폴백 시스템 시작 - 1초 간격으로 체크
+let fallbackAttempts = 0;
+const maxFallbackAttempts = 10; // 최대 10번 시도 (10초)
+
+const quickFallback = () => {
+    const existingSections = document.querySelectorAll('.section');
+    const loadingMessage = document.getElementById('loading-message');
+    
+    // 섹션이 이미 로드되었으면 중단
+    if (existingSections.length > 0) {
+        console.log('✅ Sections already loaded, canceling fallback');
+        return;
+    }
+    
+    fallbackAttempts++;
+    
+    // 1초 후부터 폴백 시작
+    if (fallbackAttempts >= 1 && loadingMessage) {
+        console.log('🆘 Quick fallback: loading simple sections');
+        loadSimpleSections();
+        return;
+    }
+    
+    // 최대 시도 횟수 도달
+    if (fallbackAttempts >= maxFallbackAttempts) {
+        console.error('❌ All fallback attempts failed');
+        return;
+    }
+    
+    // 1초 후 재시도
+    setTimeout(quickFallback, 1000);
+};
+
+// DOM 로드 완료 후 즉시 시작
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', quickFallback);
+} else {
+    quickFallback();
+}
 
 console.log('📋 Simple sections system loaded');

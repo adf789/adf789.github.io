@@ -64,13 +64,18 @@ class SectionTemplateManager {
         const section = document.createElement('div');
         section.className = 'section';
         
+        // content가 배열인 경우 문자열로 합치기
+        const content = Array.isArray(config.content) 
+            ? config.content.join('') 
+            : config.content;
+        
         section.innerHTML = `
             <div class="section-header">
                 <div class="inventory-icon"></div>
                 <span>${config.title}</span>
             </div>
             <div class="section-content">
-                ${config.content}
+                ${content}
             </div>
         `;
 
@@ -118,6 +123,11 @@ class SectionTemplateManager {
             </span>`
         ).join('');
 
+        // description이 배열인 경우 문자열로 합치기
+        const description = Array.isArray(project.description) 
+            ? project.description.join('') 
+            : project.description;
+
         const detailsButton = project.hasDetails ? 
             `<button class="details-toggle" onclick="toggleDetails('${project.id}')">
                 VIEW TECHNICAL DETAILS
@@ -125,7 +135,9 @@ class SectionTemplateManager {
 
         const detailsContent = project.hasDetails ? 
             `<div class="details-content" id="${project.id}">
-                ${project.detailsContent}
+                ${Array.isArray(project.detailsContent) 
+                    ? project.detailsContent.join('\n') 
+                    : project.detailsContent}
             </div>` : '';
 
         return `
@@ -135,7 +147,7 @@ class SectionTemplateManager {
                     ${metaItems}
                 </div>
                 <div class="project-description">
-                    ${project.description}
+                    ${description}
                 </div>
                 <div class="tech-tags">
                     ${techTags}
