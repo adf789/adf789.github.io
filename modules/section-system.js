@@ -62,7 +62,7 @@ export class SectionSystem {
 
             // 섹션 데이터 로드 시도
             const loaded = await window.SectionLoader.loadSections();
-            if (loaded && loaded.length > 0) {
+            if (loaded) {
                 this.hideLoadingMessage();
                 return true;
             }
@@ -247,5 +247,3 @@ window.SectionSystem = new SectionSystem();
 // 전역 함수로 노출 (기존 코드 호환성)
 window.initializeSectionSystem = () => window.SectionSystem.initializeSectionSystem();
 window.loadFallbackSections = () => window.SectionSystem.loadFallbackSections();
-
-console.log('🏗️ Section System loaded successfully!');
