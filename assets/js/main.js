@@ -169,28 +169,7 @@ class PortfolioApp {
 // 애플리케이션 시작
 const app = new PortfolioApp();
 
-// 추가적인 폴백 시스템 - 5초 후에도 섹션이 없으면 강제 로드
-setTimeout(() => {
-    const sections = document.querySelectorAll('.section');
-    const loadingMessage = document.getElementById('loading-message');
-    
-    if (sections.length === 0 && loadingMessage) {
-        console.log('🆘 Emergency fallback: forcing simple sections');
-        if (window.loadSimpleSections) {
-            window.loadSimpleSections();
-        } else {
-            // 최종 폴백
-            loadingMessage.innerHTML = `
-                <div style="text-align: center; padding: 50px;">
-                    <h3>⚠️ 콘텐츠 로딩 중 문제가 발생했습니다</h3>
-                    <p>페이지를 새로고침해주세요</p>
-                    <button onclick="location.reload()" style="padding: 10px 20px; background: #1976D2; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                        🔄 새로고침
-                    </button>
-                </div>
-            `;
-        }
-    }
-}, 5000);
+// 폴백 시스템 제거됨 - 1차 시도만 사용
+console.log('📋 Fallback system disabled - using primary loader only');
 
 console.log('🎮 Main application loaded successfully!');

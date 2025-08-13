@@ -377,10 +377,10 @@ window.SectionUtils = {
                 console.log(`✅ Advanced sections loaded: ${loaded.length} sections`);
             }
         } else {
-            console.warn('⚠️ SectionManager not ready, letting fallback handle it');
+            console.log('📋 SectionManager not ready - no fallback available');
         }
     } catch (error) {
-        console.warn('⚠️ Advanced loading failed, fallback will handle:', error);
+        console.log('📋 Advanced loading failed - ignoring as requested:', error.message);
     }
 })();
 

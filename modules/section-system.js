@@ -27,11 +27,8 @@ export class SectionSystem {
     async initializeSectionSystem() {
         console.log('🏗️ Initializing section system...');
         
-        // 로딩 타임아웃 설정 (10초)
-        this.loadingTimeout = setTimeout(() => {
-            console.warn('⚠️ Section loading timeout, switching to fallback');
-            this.loadFallbackSections();
-        }, 10000);
+        // 타임아웃 및 폴백 시스템 비활성화됨
+        console.log('📋 Section system timeout disabled - primary system only');
 
         try {
             // 1단계: 고급 템플릿 시스템 시도
@@ -52,12 +49,11 @@ export class SectionSystem {
                 return;
             }
 
-            // 3단계: 하드코딩된 폴백
-            throw new Error('All section systems failed');
+            // 폴백 시스템 비활성화 - 로드 실패 시 무시
+            console.log('⚠️ Primary section system failed - no fallback available');
 
         } catch (error) {
-            console.error('❌ Section system initialization failed:', error);
-            this.loadFallbackSections();
+            console.log('📋 Section system failed, ignoring as requested:', error.message);
         }
     }
 
@@ -115,32 +111,10 @@ export class SectionSystem {
     }
 
     /**
-     * 폴백 섹션 로드
+     * 폴백 섹션 로드 (비활성화됨)
      */
     loadFallbackSections() {
-        console.log('🆘 Loading fallback sections...');
-        this.clearLoadingTimeout();
-        this.fallbackMode = true;
-
-        try {
-            const fallbackSections = this.getFallbackSections();
-            const container = document.querySelector('.container');
-            
-            if (container) {
-                fallbackSections.forEach((section, index) => {
-                    setTimeout(() => {
-                        this.createFallbackSection(section, container);
-                    }, index * 200);
-                });
-                
-                this.hideLoadingMessage();
-                this.isInitialized = true;
-                console.log('✅ Fallback sections loaded');
-            }
-        } catch (error) {
-            console.error('❌ Even fallback failed:', error);
-            this.showErrorMessage();
-        }
+        console.log('📋 Fallback sections disabled - ignoring request');
     }
 
     /**
@@ -403,15 +377,7 @@ export class SectionSystem {
         const sections = document.querySelectorAll('.section');
         sections.forEach(section => section.remove());
         
-        // 로딩 메시지 다시 표시
-        const container = document.querySelector('.container');
-        if (container) {
-            const loadingMessage = document.createElement('div');
-            loadingMessage.id = 'loading-message';
-            loadingMessage.innerHTML = '🔄 섹션을 다시 로드하는 중...';
-            loadingMessage.style.cssText = 'text-align: center; padding: 50px; color: #666;';
-            container.appendChild(loadingMessage);
-        }
+        // 로딩 메시지 표시 비활성화됨 - 폴백 없음
         
         // 재초기화
         setTimeout(() => {
