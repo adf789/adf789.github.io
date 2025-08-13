@@ -25,7 +25,7 @@ export class SectionSystem {
      * 섹션 시스템 초기화
      */
     async initializeSectionSystem() {
-        console.log('🏗️ Initializing section system...');
+        console.log('🏗️ Initializing section system... Ver.1');
         
         // 타임아웃 및 폴백 시스템 비활성화됨
         console.log('📋 Section system timeout disabled - primary system only');
