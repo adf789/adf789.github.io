@@ -45,13 +45,25 @@ class PortfolioApp {
         ];
 
         let attempts = 0;
-        const maxAttempts = 50; // 5초 대기
+        // localhost에서는 더 긴 대기 시간 제공
+        const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+        const maxAttempts = isLocalhost ? 100 : 50; // localhost: 10초, 그 외: 5초 대기
+        
+        console.log(`🌐 Environment: ${isLocalhost ? 'localhost' : 'production'} (max attempts: ${maxAttempts})`);
 
         const checkModules = () => {
             const loadedModules = moduleNames.filter(name => window[name]);
+            const missingModules = moduleNames.filter(name => !window[name]);
+            
             console.log(`📊 Modules loaded: ${loadedModules.length}/${moduleNames.length}`);
+            
+            // 디버깅: 누락된 모듈 표시
+            if (missingModules.length > 0) {
+                console.log('❌ Missing modules:', missingModules);
+            }
 
             if (loadedModules.length === moduleNames.length) {
+                console.log('✅ All modules loaded successfully!');
                 this.finalizeInitialization();
                 return;
             }
@@ -59,6 +71,8 @@ class PortfolioApp {
             attempts++;
             if (attempts >= maxAttempts) {
                 console.warn('⚠️ Not all modules loaded, proceeding anyway...');
+                console.warn('📋 Final status - Loaded:', loadedModules);
+                console.warn('📋 Final status - Missing:', missingModules);
                 this.finalizeInitialization();
                 return;
             }

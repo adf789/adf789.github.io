@@ -128,11 +128,11 @@ public class UIManager : MonoBehaviour
                     <h3>🎮 GAME ENGINES</h3>
                     <div class="skill-item">
                         <span>Unity (5년 경험)</span>
-                        <div class="skill-level"><div class="skill-fill" style="width: 95%"></div></div>
+                        <div class="skill-level"><div class="skill-fill" data-width="95%"></div></div>
                     </div>
                     <div class="skill-item">
                         <span>Unreal Engine (2년 경험)</span>
-                        <div class="skill-level"><div class="skill-fill" style="width: 80%"></div></div>
+                        <div class="skill-level"><div class="skill-fill" data-width="80%"></div></div>
                     </div>
                 </div>
                 
@@ -140,15 +140,15 @@ public class UIManager : MonoBehaviour
                     <h3>💻 PROGRAMMING</h3>
                     <div class="skill-item">
                         <span>C# (실무 5년)</span>
-                        <div class="skill-level"><div class="skill-fill" style="width: 90%"></div></div>
+                        <div class="skill-level"><div class="skill-fill" data-width="90%"></div></div>
                     </div>
                     <div class="skill-item">
                         <span>C++ (실무 2년)</span>
-                        <div class="skill-level"><div class="skill-fill" style="width: 75%"></div></div>
+                        <div class="skill-level"><div class="skill-fill" data-width="75%"></div></div>
                     </div>
                     <div class="skill-item">
                         <span>Python (학습 중)</span>
-                        <div class="skill-level"><div class="skill-fill" style="width: 60%"></div></div>
+                        <div class="skill-level"><div class="skill-fill" data-width="60%"></div></div>
                     </div>
                 </div>
             </div>
@@ -270,6 +270,11 @@ function loadSimpleSections() {
         setTimeout(() => {
             section.style.opacity = '1';
             section.style.transform = 'translateY(0)';
+            
+            // SKILL INVENTORY 섹션인 경우 스킬 바 애니메이션 초기화
+            if (sectionData.title === 'SKILL INVENTORY') {
+                initSkillBarAnimation(section);
+            }
         }, index * 200 + 100);
     });
     
@@ -313,14 +318,68 @@ function addSimpleSection(title, content) {
     setTimeout(() => {
         section.style.opacity = '1';
         section.style.transform = 'translateY(0)';
+        
+        // SKILL INVENTORY 섹션인 경우 스킬 바 애니메이션 초기화
+        if (title === 'SKILL INVENTORY') {
+            initSkillBarAnimation(section);
+        }
     }, 100);
     
     console.log(`✅ Simple section added: ${title}`);
 }
 
+/**
+ * 스킬 바 애니메이션 초기화 함수
+ * @param {HTMLElement} section - SKILL INVENTORY 섹션 엘리먼트
+ */
+function initSkillBarAnimation(section) {
+    const skillBars = section.querySelectorAll('.skill-fill');
+    console.log('Initializing skill bar animation for', skillBars.length, 'bars');
+    
+    if (skillBars.length === 0) return;
+    
+    // 애니메이션 준비: 모든 바를 0%로 설정하고 타겟 너비 저장
+    skillBars.forEach((bar, index) => {
+        // data-width가 있으면 사용하고, 없으면 style.width 사용
+        let targetWidth = bar.getAttribute('data-width');
+        if (!targetWidth && bar.style.width) {
+            targetWidth = bar.style.width;
+            bar.setAttribute('data-width', targetWidth);
+        }
+        
+        console.log(`Bar ${index}: target width = ${targetWidth}`);
+        
+        // 애니메이션 준비
+        bar.style.width = '0%';
+        bar.style.transition = 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+    });
+    
+    // 800ms 후 애니메이션 시작 (섹션 나타나는 애니메이션 완료 후)
+    setTimeout(() => {
+        skillBars.forEach((bar, index) => {
+            const targetWidth = bar.getAttribute('data-width') || '0%';
+            
+            // 순차적으로 애니메이션 (300ms 간격)
+            setTimeout(() => {
+                console.log(`Animating bar ${index} to ${targetWidth}`);
+                bar.style.width = targetWidth;
+                
+                // 애니메이션 완료 후 글로우 효과
+                bar.addEventListener('transitionend', () => {
+                    bar.style.boxShadow = '0 0 15px rgba(76, 175, 80, 0.8), inset 0 0 5px rgba(255, 255, 255, 0.3)';
+                    setTimeout(() => {
+                        bar.style.boxShadow = '';
+                    }, 1000);
+                }, { once: true });
+            }, index * 300);
+        });
+    }, 800);
+}
+
 // 전역으로 노출
 window.loadSimpleSections = loadSimpleSections;
 window.addSimpleSection = addSimpleSection;
+window.initSkillBarAnimation = initSkillBarAnimation;
 
 // 즉시 폴백 시스템 시작 - 1초 간격으로 체크
 let fallbackAttempts = 0;
