@@ -216,6 +216,7 @@ export class AnimationManager {
     animateSkillBars(skillBars) {
         skillBars.forEach((bar, index) => {
             const targetWidth = bar.getAttribute('data-width') || '0%';
+            bar.style.width = '0%';
             
             setTimeout(() => {
                 bar.style.width = targetWidth;
