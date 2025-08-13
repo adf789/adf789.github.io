@@ -349,9 +349,14 @@ function initSkillBarAnimation(section) {
         
         console.log(`Bar ${index}: target width = ${targetWidth}`);
         
-        // 애니메이션 준비
+        // 트랜지션 없이 즉시 0%로 설정
+        bar.style.transition = 'none';
         bar.style.width = '0%';
-        bar.style.transition = 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        
+        // 다음 프레임에서 트랜지션 활성화
+        requestAnimationFrame(() => {
+            bar.style.transition = 'width 1.5s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
     });
     
     // 800ms 후 애니메이션 시작 (섹션 나타나는 애니메이션 완료 후)
@@ -373,7 +378,7 @@ function initSkillBarAnimation(section) {
                 }, { once: true });
             }, index * 300);
         });
-    }, 8000);
+    }, 800);
 }
 
 // 전역으로 노출
