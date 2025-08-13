@@ -100,7 +100,7 @@ class SectionLoader {
     }
 
     /**
-     * 개별 섹션 렌더링
+     * 개별 섹션 렌더링 - 중복 검사 포함
      * @param {Object} sectionConfig - 섹션 설정
      * @param {string} containerId - 컨테이너 ID
      */
@@ -108,6 +108,18 @@ class SectionLoader {
         if (!window.SectionManager) {
             console.error('SectionManager not found. Please load section-templates.js first.');
             return;
+        }
+
+        // 중복 검사: 같은 제목의 섹션이 이미 있는지 확인
+        const container = document.getElementById(containerId) || document.querySelector('.container');
+        if (container && sectionConfig.title) {
+            const existingSections = container.querySelectorAll('.section-header span');
+            for (const sectionTitle of existingSections) {
+                if (sectionTitle.textContent.trim() === sectionConfig.title.trim()) {
+                    console.log(`⚠️ Section already exists, skipping: ${sectionConfig.title}`);
+                    return;
+                }
+            }
         }
 
         const section = window.SectionManager.createFromConfig(sectionConfig);

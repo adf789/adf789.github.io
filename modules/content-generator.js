@@ -91,7 +91,7 @@ export class ContentGenerator {
             {
                 type: 'basic',
                 title: 'PLAYER PROFILE',
-                content: '🎮 게임 개발자 • 5년 경력 • Unity & Unreal Engine 전문가'
+                content: '🎮 게임 개발자 • 5년 경력 • Unity & Unreal'
             }
         ];
         

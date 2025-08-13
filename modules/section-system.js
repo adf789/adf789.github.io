@@ -361,18 +361,29 @@ export class SectionSystem {
     }
 
     /**
-     * 섹션 추가 (외부 API)
+     * 섹션 추가 (외부 API) - 중복 검사 포함
      * @param {string} title - 섹션 제목
      * @param {string} content - 섹션 내용
      */
     addSection(title, content) {
+        // 중복 검사: 같은 제목의 섹션이 이미 있는지 확인
+        const container = document.querySelector('.container');
+        if (container) {
+            const existingSections = container.querySelectorAll('.section-header span');
+            for (const sectionTitle of existingSections) {
+                if (sectionTitle.textContent.trim() === title.trim()) {
+                    console.log(`⚠️ Section already exists, skipping: ${title}`);
+                    return;
+                }
+            }
+        }
+
         if (window.addSimpleSection) {
             window.addSimpleSection(title, content);
         } else if (window.SectionHelpers) {
             window.SectionHelpers.addBasicSection(title, content);
         } else {
             // 폴백: 직접 DOM 조작
-            const container = document.querySelector('.container');
             if (container) {
                 this.createFallbackSection({ title, content }, container);
             }

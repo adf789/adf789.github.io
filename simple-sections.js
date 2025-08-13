@@ -277,11 +277,20 @@ function loadSimpleSections() {
 }
 
 /**
- * 새 섹션 추가 함수 (간단한 버전)
+ * 새 섹션 추가 함수 (간단한 버전) - 중복 검사 포함
  */
 function addSimpleSection(title, content) {
     const container = document.getElementById('main-container') || document.querySelector('.container');
     if (!container) return;
+    
+    // 중복 검사: 같은 제목의 섹션이 이미 있는지 확인
+    const existingSections = container.querySelectorAll('.section-header span');
+    for (const sectionTitle of existingSections) {
+        if (sectionTitle.textContent.trim() === title.trim()) {
+            console.log(`⚠️ Section already exists, skipping: ${title}`);
+            return;
+        }
+    }
     
     const section = document.createElement('div');
     section.className = 'section';
