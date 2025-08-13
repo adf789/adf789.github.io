@@ -47,26 +47,10 @@ export class CareerManager {
     updateTitle() {
         if (!this.titleElement) return;
 
-        const experience = this.calculateExperience();
         const randomSkill = this.skills[Math.floor(Math.random() * this.skills.length)];
         
         // 경력에 따른 레벨 시스템
-        let grade = '';
-        if (experience.years >= 15) {
-            grade = '⚫ BEDROCK';
-        } else if (experience.years >= 10) {
-            grade = '🔵 DIAMOND';
-        } else if (experience.years >= 7) {
-            grade = '🟣 OBSIDIAN';
-        } else if (experience.years >= 5) {
-            grade = '🟡 GOLD';
-        } else if (experience.years >= 5) {
-            grade = '⚪ IRON';
-        } else if (experience.years >= 5) {
-            grade = '🔘 STONE';
-        } else {
-            grade = '🟤 DIRT';
-        }
+        let grade = this.getCurrentLevel();
 
         const tooltipText = `0-1년 : 🟤 DIRT
 1-3년: 🔘 STONE
@@ -76,7 +60,7 @@ export class CareerManager {
 10-15년: 🔵 DIAMOND
 15년+: ⚫ BEDROCK`;
 
-        const newTitle = `${this.baseTitle} • ${grade} • ${randomSkill} 🎮`;
+        const newTitle = `${this.baseTitle} • GRADE ${grade} • ${randomSkill} 🎮`;
         
         this.titleElement.textContent = newTitle;
         this.titleElement.title = tooltipText;
@@ -122,10 +106,22 @@ export class CareerManager {
      */
     getCurrentLevel() {
         const experience = this.calculateExperience();
-        if (experience.years >= 5) return 'SENIOR';
-        if (experience.years >= 3) return 'INTERMEDIATE';
-        if (experience.years >= 1) return 'JUNIOR';
-        return 'TRAINEE';
+
+        if (experience.years >= 15) {
+            return '⚫ BEDROCK';
+        } else if (experience.years >= 10) {
+            return '🔵 DIAMOND';
+        } else if (experience.years >= 7) {
+            return '🟣 OBSIDIAN';
+        } else if (experience.years >= 5) {
+            return '🟡 GOLD';
+        } else if (experience.years >= 3) {
+            return '⚪ IRON';
+        } else if (experience.years >= 1) {
+            return '🔘 STONE';
+        } else {
+            return '🟤 DIRT';
+        }
     }
 }
 

@@ -16,9 +16,11 @@ class SectionLoader {
      * @param {string} dataPath - JSON 파일 경로
      * @returns {Promise} 로딩 Promise
      */
-    async loadSectionsData(dataPath = 'data/sections-data.json') {
+    async loadSectionsData(dataPath = './data/sections-data.json') {
         try {
-            const response = await fetch(dataPath);
+            // 캐싱 버스팅 추가 (GitHub Pages 캐싱 문제 해결)
+            const cacheBuster = `?v=${Date.now()}`;
+            const response = await fetch(dataPath + cacheBuster);
             if (!response.ok) {
                 throw new Error(`Failed to load sections data: ${response.status}`);
             }
