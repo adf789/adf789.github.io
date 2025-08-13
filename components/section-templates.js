@@ -172,7 +172,7 @@ class SectionTemplateManager {
                 <div class="skill-item">
                     <span>${skill.name}</span>
                     <div class="skill-level">
-                        <div class="skill-fill" data-width="width: ${skill.level}%"></div>
+                        <div class="skill-fill" data-width="${skill.level}%"></div>
                     </div>
                 </div>
             `).join('');

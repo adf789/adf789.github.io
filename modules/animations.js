@@ -18,7 +18,6 @@ export class AnimationManager {
     init() {
         this.detectPerformance();
         this.initScrollAnimations();
-        this.initSkillBarAnimations();
         this.setupPerformanceOptimizations();
     }
 
@@ -193,6 +192,7 @@ export class AnimationManager {
         // 스킬바가 있다면 애니메이션 시작
         const skillBars = element.querySelectorAll('.skill-fill');
         if (skillBars.length > 0) {
+            this.initSkillBarAnimations(skillBars);
             this.animateSkillBars(skillBars);
         }
     }
@@ -200,8 +200,7 @@ export class AnimationManager {
     /**
      * 스킬바 애니메이션 초기화
      */
-    initSkillBarAnimations() {
-        const skillBars = document.querySelectorAll('.skill-fill');
+    initSkillBarAnimations(skillBars) {
         skillBars.forEach(bar => {
             bar.style.width = '0%';
             bar.style.transition = this.isLowPerformanceDevice ? 
@@ -216,7 +215,7 @@ export class AnimationManager {
      */
     animateSkillBars(skillBars) {
         skillBars.forEach((bar, index) => {
-            const targetWidth = bar.style.width || bar.getAttribute('data-width') || '0%';
+            const targetWidth = bar.getAttribute('data-width') || '0%';
             
             setTimeout(() => {
                 bar.style.width = targetWidth;
@@ -326,6 +325,5 @@ window.AnimationManager = new AnimationManager();
 
 // 전역 함수로 노출 (기존 코드 호환성)
 window.initScrollAnimations = () => window.AnimationManager.initScrollAnimations();
-window.animateSkillBars = () => window.AnimationManager.initSkillBarAnimations();
 
 console.log('🎬 Animation Manager loaded successfully!');
