@@ -25,7 +25,11 @@ class SectionLoader {
                 throw new Error(`Failed to load sections data: ${response.status}`);
             }
             this.sectionsData = await response.json();
-            console.log('📊 Sections data loaded successfully');
+            console.log('📊 Sections data loaded successfully:', {
+                type: typeof this.sectionsData,
+                isArray: Array.isArray(this.sectionsData),
+                length: Array.isArray(this.sectionsData) ? this.sectionsData.length : Object.keys(this.sectionsData).length
+            });
             return this.sectionsData;
         } catch (error) {
             console.error('❌ Failed to load sections data:', error);
@@ -46,6 +50,8 @@ class SectionLoader {
             return true;
         } catch (error) {
             console.error('Failed to load sections:', error);
+            console.error('SectionsData type:', typeof this.sectionsData);
+            console.error('SectionsData:', this.sectionsData);
             return false;
         }
     }
@@ -80,7 +86,13 @@ class SectionLoader {
         existingSections.forEach(section => section.remove());
 
         // 새 섹션들 렌더링
-        this.sectionsData.forEach((sectionConfig, index) => {
+        const sectionsArray = Array.isArray(this.sectionsData) 
+            ? this.sectionsData 
+            : this.sectionsData.sections || [];
+            
+        console.log('📊 Rendering sections:', sectionsArray.length, 'sections found');
+        
+        sectionsArray.forEach((sectionConfig, index) => {
             setTimeout(() => {
                 this.renderSection(sectionConfig, containerId);
             }, index * 100); // 순차적 애니메이션
