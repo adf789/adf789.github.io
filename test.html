@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Section System Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .debug { background: #f0f0f0; padding: 10px; margin: 10px 0; border-left: 4px solid #007acc; }
+        .section { border: 2px solid #ddd; margin: 20px 0; padding: 15px; background: #f9f9f9; }
+        .section-header { background: #007acc; color: white; padding: 10px; margin: -15px -15px 15px -15px; }
+        .loading { text-align: center; padding: 50px; color: #666; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Section Template System Test</h1>
+    
+    <div class="debug">
+        <h3>Debug Information:</h3>
+        <div id="debug-log"></div>
+    </div>
+    
+    <div id="test-container" class="loading">
+        🔄 Testing section system...
+    </div>
+    
+    <div class="debug">
+        <h3>Manual Test Buttons:</h3>
+        <button onclick="testBasicSection()">Test Basic Section</button>
+        <button onclick="testProjectSection()">Test Project Section</button>
+        <button onclick="loadFromJSON()">Load from JSON</button>
+        <button onclick="showDebugInfo()">Show Debug Info</button>
+    </div>
+
+    <!-- Load section system -->
+    <script src="components/section-templates.js"></script>
+    <script src="components/section-loader.js"></script>
+    
+    <script>
+        // Debug logging
+        function log(message) {
+            const debugLog = document.getElementById('debug-log');
+            const timestamp = new Date().toLocaleTimeString();
+            debugLog.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+            console.log(message);
+        }
+        
+        // Wait for systems to load
+        let loadAttempts = 0;
+        function checkSystemReady() {
+            loadAttempts++;
+            log(`Loading attempt ${loadAttempts}`);
+            
+            if (typeof window.SectionManager !== 'undefined' && typeof window.SectionLoader !== 'undefined') {
+                log('✅ Section system loaded successfully!');
+                runTests();
+            } else if (loadAttempts < 10) {
+                log(`⏳ Waiting for section system... (${loadAttempts}/10)`);
+                setTimeout(checkSystemReady, 500);
+            } else {
+                log('❌ Section system failed to load after 5 seconds');
+                showFallback();
+            }
+        }
+        
+        function runTests() {
+            log('🚀 Running automatic tests...');
+            
+            // Test 1: Basic section creation
+            try {
+                const basicSection = window.SectionManager.createBasicSection({
+                    title: 'Test Basic Section',
+                    content: '<p>This is a test of the basic section creation.</p>'
+                });
+                
+                document.getElementById('test-container').innerHTML = '';
+                document.getElementById('test-container').appendChild(basicSection);
+                log('✅ Basic section creation test passed');
+            } catch (error) {
+                log(`❌ Basic section test failed: ${error.message}`);
+                showFallback();
+                return;
+            }
+            
+            // Test 2: JSON loading
+            setTimeout(() => {
+                loadFromJSON();
+            }, 1000);
+        }
+        
+        function showFallback() {
+            document.getElementById('test-container').innerHTML = `
+                <div class="section">
+                    <div class="section-header">FALLBACK SECTION</div>
+                    <p>Section system failed to load. This is the fallback content.</p>
+                </div>
+            `;
+            log('📋 Fallback content loaded');
+        }
+        
+        // Manual test functions
+        function testBasicSection() {
+            if (typeof window.SectionManager === 'undefined') {
+                log('❌ SectionManager not available');
+                return;
+            }
+            
+            const section = window.SectionManager.createBasicSection({
+                title: 'Manual Test Section',
+                content: '<p><strong>Manual test:</strong> This section was created by clicking the test button.</p>'
+            });
+            
+            document.getElementById('test-container').appendChild(section);
+            log('✅ Manual basic section added');
+        }
+        
+        function testProjectSection() {
+            if (typeof window.SectionManager === 'undefined') {
+                log('❌ SectionManager not available');
+                return;
+            }
+            
+            const projectData = {
+                id: 'test-project',
+                title: 'Test Project',
+                meta: ['🧪 TEST', '⚡ QUICK'],
+                description: '<strong>Test project</strong> for validating the project section creation.',
+                techTags: [
+                    { name: 'JavaScript', icon: null },
+                    { name: 'HTML', icon: null }
+                ],
+                hasDetails: false
+            };
+            
+            const section = window.SectionManager.createProjectSection(projectData);
+            document.getElementById('test-container').appendChild(section);
+            log('✅ Manual project section added');
+        }
+        
+        function loadFromJSON() {
+            if (typeof window.SectionLoader === 'undefined') {
+                log('❌ SectionLoader not available');
+                return;
+            }
+            
+            log('🔄 Attempting to load sections from JSON...');
+            
+            window.SectionLoader.loadSectionsData('data/sections-data.json')
+                .then(data => {
+                    log('✅ JSON data loaded successfully');
+                    log(`Found ${data.sections.length} sections in JSON`);
+                    
+                    // Try to render first section
+                    if (data.sections.length > 0) {
+                        const section = window.SectionManager.createFromConfig(data.sections[0]);
+                        document.getElementById('test-container').appendChild(section);
+                        log('✅ First section from JSON rendered');
+                    }
+                })
+                .catch(error => {
+                    log(`❌ JSON loading failed: ${error.message}`);
+                });
+        }
+        
+        function showDebugInfo() {
+            log('🔍 Debug Information:');
+            log(`SectionManager available: ${typeof window.SectionManager !== 'undefined'}`);
+            log(`SectionLoader available: ${typeof window.SectionLoader !== 'undefined'}`);
+            log(`SectionUtils available: ${typeof window.SectionUtils !== 'undefined'}`);
+            log(`Current location: ${window.location.href}`);
+            
+            if (typeof window.SectionLoader !== 'undefined') {
+                const data = window.SectionLoader.getSectionsData();
+                log(`Loaded sections: ${data ? data.sections?.length || 0 : 'None'}`);
+            }
+        }
+        
+        // Start the test
+        document.addEventListener('DOMContentLoaded', function() {
+            log('📄 DOM loaded, starting system check...');
+            setTimeout(checkSystemReady, 100);
+        });
+    </script>
+</body>
+</html>
