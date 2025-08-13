@@ -4,10 +4,10 @@
 
 export class CareerManager {
     constructor() {
-        this.startDate = new Date('2019-03-01'); // 게임 개발 시작일
+        this.startDate = new Date('2020-11-11'); // 게임 개발 시작일
         this.titleElement = document.getElementById('dynamic-title');
         this.baseTitle = '🎮 GAME DEVELOPER';
-        this.skills = ['UNITY & UNREAL MASTER', 'C# SPECIALIST', 'MOBILE GAME EXPERT'];
+        this.skills = ['UNITY & UNREAL', 'C# SPECIALIST', 'MOBILE GAME EXPERT'];
         
         this.init();
     }
@@ -51,21 +51,35 @@ export class CareerManager {
         const randomSkill = this.skills[Math.floor(Math.random() * this.skills.length)];
         
         // 경력에 따른 레벨 시스템
-        let level = '';
-        if (experience.years >= 5) {
-            level = 'SENIOR';
-        } else if (experience.years >= 3) {
-            level = 'INTERMEDIATE';
-        } else if (experience.years >= 1) {
-            level = 'JUNIOR';
+        let grade = '';
+        if (experience.years >= 15) {
+            grade = '⚫ BEDROCK';
+        } else if (experience.years >= 10) {
+            grade = '🔵 DIAMOND';
+        } else if (experience.years >= 7) {
+            grade = '🟣 OBSIDIAN';
+        } else if (experience.years >= 5) {
+            grade = '🟡 GOLD';
+        } else if (experience.years >= 5) {
+            grade = '⚪ IRON';
+        } else if (experience.years >= 5) {
+            grade = '🔘 STONE';
         } else {
-            level = 'TRAINEE';
+            grade = '🟤 DIRT';
         }
 
-        const newTitle = `${this.baseTitle} • ${level} (${experience.years}Y ${experience.months}M) • ${randomSkill} 🎮`;
+        const tooltipText = `0-1년 : 🟤 DIRT
+1-3년: 🔘 STONE
+3-5년: ⚪ IRON
+5-7년: 🟡 GOLD
+7-10년: 🟣 OBSIDIAN
+10-15년: 🔵 DIAMOND
+15년+: ⚫ BEDROCK`;
+
+        const newTitle = `${this.baseTitle} • ${grade} • ${randomSkill} 🎮`;
         
         this.titleElement.textContent = newTitle;
-        this.titleElement.title = `게임 개발 경력: ${experience.years}년 ${experience.months}개월 (${experience.startDate} ~ ${experience.currentDate})`;
+        this.titleElement.title = tooltipText;
     }
 
     /**
