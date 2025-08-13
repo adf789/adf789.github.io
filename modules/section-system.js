@@ -40,15 +40,6 @@ export class SectionSystem {
                 return;
             }
 
-            // 2단계: 단순 시스템 시도
-            if (await this.trySimpleSystem()) {
-                this.clearLoadingTimeout();
-                this.isInitialized = true;
-                this.markTiming('section-system-init-end');
-                console.log('✅ Simple section system initialized successfully');
-                return;
-            }
-
             // 폴백 시스템 비활성화 - 로드 실패 시 무시
             console.log('⚠️ Primary section system failed - no fallback available');
 
@@ -84,146 +75,10 @@ export class SectionSystem {
     }
 
     /**
-     * 단순 시스템 시도
-     * @returns {boolean} 성공 여부
-     */
-    async trySimpleSystem() {
-        try {
-            // Simple sections 함수 확인
-            if (typeof window.addSimpleSection !== 'function') {
-                console.log('🔄 Simple section function not available');
-                return false;
-            }
-
-            // 기본 섹션들 추가
-            const basicSections = this.getBasicSections();
-            
-            for (const section of basicSections) {
-                window.addSimpleSection(section.title, section.content);
-            }
-
-            this.hideLoadingMessage();
-            return true;
-        } catch (error) {
-            console.warn('Simple system failed:', error);
-            return false;
-        }
-    }
-
-    /**
      * 폴백 섹션 로드 (비활성화됨)
      */
     loadFallbackSections() {
         console.log('📋 Fallback sections disabled - ignoring request');
-    }
-
-    /**
-     * 기본 섹션 데이터
-     * @returns {Array} 기본 섹션 배열
-     */
-    getBasicSections() {
-        return [
-            {
-                title: 'PLAYER PROFILE',
-                content: `
-                    <p style="font-size: 0.9em; line-height: 1.8; color: #424242;">
-                        🏗️ <strong>BUILDING EXPERIENCE:</strong> 5년<br>
-                        🎯 <strong>SPECIALIZATION:</strong> 게임 세계 구축 및 최적화<br>
-                        ⚡ <strong>CORE SKILLS:</strong> Unity & Unreal Engine을 활용한 크로스 플랫폼 게임 개발<br><br>
-                        
-                        마인크래프트처럼 무한한 가능성을 가진 게임 세계를 만드는 것이 저의 목표입니다. 
-                        한 블록 한 블록 쌓아 올리듯 안정적이고 확장 가능한 코드를 작성하며, 
-                        플레이어들이 멋진 모험을 할 수 있는 게임을 만들어갑니다.
-                    </p>
-                `
-            },
-            {
-                title: 'COMPLETED PROJECTS',
-                content: `
-                    <div class="project-card">
-                        <h3 class="project-title">[COMPANY A] MOBILE RPG WORLD</h3>
-                        <div class="project-meta">
-                            <span class="meta-item">📱 MOBILE</span>
-                            <span class="meta-item">👥 TEAM: 15</span>
-                            <span class="meta-item">⏰ 18 MONTHS</span>
-                            <span class="meta-item">📈 1M+ DOWNLOADS</span>
-                        </div>
-                        <div class="project-description">
-                            <strong>ROLE:</strong> 메인 클라이언트 개발자 (UI 시스템, 전투 시스템)<br>
-                            <strong>ACHIEVEMENTS:</strong>
-                            <ul>
-                                <li>🧱 Unity UGUI 기반 모듈형 UI 프레임워크 설계</li>
-                                <li>⚡ 메모리 사용량 40% 절감을 위한 리소스 최적화</li>
-                                <li>⚔️ 실시간 PvP 전투 시스템 네트워크 동기화</li>
-                                <li>🚀 크로스 플랫폼 자동 빌드 파이프라인 구축</li>
-                            </ul>
-                        </div>
-                        <div class="tech-tags">
-                            <span class="tech-tag">UNITY 2021.3</span>
-                            <span class="tech-tag">C#</span>
-                            <span class="tech-tag">UGUI</span>
-                            <span class="tech-tag">MIRROR NET</span>
-                        </div>
-                    </div>
-                `
-            }
-        ];
-    }
-
-    /**
-     * 폴백 섹션 데이터
-     * @returns {Array} 폴백 섹션 배열
-     */
-    getFallbackSections() {
-        return [
-            {
-                title: 'PLAYER PROFILE',
-                content: `
-                    <p style="font-size: 0.9em; line-height: 1.8; color: #424242;">
-                        🎮 <strong>GAME DEVELOPER</strong> • 5년 경력<br>
-                        🏗️ Unity & Unreal Engine 전문가<br>
-                        ⚡ 모바일 게임 개발 및 최적화 전문<br><br>
-                        게임 세계를 구축하고 플레이어에게 즐거움을 선사하는 것이 목표입니다.
-                    </p>
-                `,
-                type: 'basic'
-            },
-            {
-                title: 'CORE SKILLS',
-                content: `
-                    <div style="display: grid; gap: 15px;">
-                        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
-                            <strong>🎮 Game Engines</strong><br>
-                            Unity (5년), Unreal Engine (2년)
-                        </div>
-                        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
-                            <strong>💻 Programming</strong><br>
-                            C# (전문), C++ (숙련), Python (기초)
-                        </div>
-                        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;">
-                            <strong>📱 Platforms</strong><br>
-                            Mobile (iOS/Android), PC, Console
-                        </div>
-                    </div>
-                `,
-                type: 'basic'
-            },
-            {
-                title: 'PROJECT EXPERIENCE',
-                content: `
-                    <div style="background: #f5f5f5; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
-                        <h4 style="margin: 0 0 10px 0; color: #1976D2;">모바일 RPG 게임</h4>
-                        <p style="margin: 0; color: #666;">
-                            📱 플랫폼: Mobile (iOS/Android)<br>
-                            ⏰ 기간: 18개월<br>
-                            👥 팀 규모: 15명<br>
-                            📈 성과: 100만+ 다운로드
-                        </p>
-                    </div>
-                `,
-                type: 'basic'
-            }
-        ];
     }
 
     /**
