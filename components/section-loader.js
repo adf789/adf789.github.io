@@ -36,6 +36,21 @@ class SectionLoader {
     }
 
     /**
+     * 섹션 로드 (호환성을 위한 메서드)
+     * @param {string} containerId - 컨테이너 ID
+     * @returns {Promise<boolean>} 성공 여부
+     */
+    async loadSections(containerId = 'main-container') {
+        try {
+            await this.renderAllSections(containerId);
+            return true;
+        } catch (error) {
+            console.error('Failed to load sections:', error);
+            return false;
+        }
+    }
+
+    /**
      * 폴백 데이터 (JSON 로딩 실패 시)
      */
     getFallbackData() {
@@ -65,7 +80,7 @@ class SectionLoader {
         existingSections.forEach(section => section.remove());
 
         // 새 섹션들 렌더링
-        this.sectionsData.sections.forEach((sectionConfig, index) => {
+        this.sectionsData.forEach((sectionConfig, index) => {
             setTimeout(() => {
                 this.renderSection(sectionConfig, containerId);
             }, index * 100); // 순차적 애니메이션

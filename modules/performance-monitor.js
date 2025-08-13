@@ -304,7 +304,7 @@ export class PerformanceMonitor {
         };
         
         // 성능 데이터 로깅 (개발 모드에서만)
-        if (process?.env?.NODE_ENV === 'development') {
+        if (typeof process !== 'undefined' && process?.env?.NODE_ENV === 'development') {
             console.log('📊 Performance Metrics:', currentMetrics);
         }
         
