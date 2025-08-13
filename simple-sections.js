@@ -373,7 +373,7 @@ function initSkillBarAnimation(section) {
                 }, { once: true });
             }, index * 300);
         });
-    }, 800);
+    }, 8000);
 }
 
 // 전역으로 노출
