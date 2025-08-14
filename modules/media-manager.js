@@ -159,37 +159,8 @@ export class MediaManager {
             img.classList.remove('loading');
             img.classList.add('error');
             
-            this.showImageFallback(img);
             console.error(`❌ Failed to load image after ${this.maxRetries} attempts: ${src}`);
         }
-    }
-
-    /**
-     * 이미지 폴백 표시
-     * @param {HTMLImageElement} img - 이미지 엘리먼트
-     */
-    showImageFallback(img) {
-        // 기존 폴백 엘리먼트 찾기
-        let fallback = img.nextElementSibling;
-        if (fallback && fallback.classList.contains('image-fallback')) {
-            fallback.style.display = 'block';
-            img.style.display = 'none';
-            return;
-        }
-
-        // 폴백 엘리먼트 생성
-        fallback = document.createElement('div');
-        fallback.className = 'image-fallback screenshot-placeholder';
-        fallback.innerHTML = `
-            <div style="text-align: center; padding: 20px; color: #666;">
-                <div style="font-size: 3em; margin-bottom: 10px;">🖼️</div>
-                <div>이미지를 불러올 수 없습니다</div>
-                <div style="font-size: 0.8em; margin-top: 5px;">${img.alt || 'Image'}</div>
-            </div>
-        `;
-        
-        img.parentNode.insertBefore(fallback, img.nextSibling);
-        img.style.display = 'none';
     }
 
     /**

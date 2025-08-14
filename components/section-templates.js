@@ -65,9 +65,23 @@ class SectionTemplateManager {
         section.className = 'section';
         
         // content가 배열인 경우 문자열로 합치기
-        const content = Array.isArray(config.content) 
+        let content = Array.isArray(config.content) 
             ? config.content.join('') 
             : config.content;
+
+        // CareerManager를 통한 경력 정보 치환
+        if (window.CareerManager && typeof window.CareerManager !== 'undefined') {
+            const yearCount = window.CareerManager.getExperienceYearCountData();
+            const experience = window.CareerManager.getExperienceData();
+            const experienceText = `${yearCount}년차(${experience.startYear}.${experience.startMonth}~)`;
+            content = String(content).replace('[EXPERIENCE]', experienceText);
+        } else {
+            // CareerManager가 없는 경우 기본값 사용
+            content = String(content).replace('[EXPERIENCE]', '5년차');
+        }
+        
+        // URL과 code-line 링크 처리
+        content = this.processLinksInContent(content);
         
         section.innerHTML = `
             <div class="section-header">
@@ -262,6 +276,14 @@ class SectionTemplateManager {
      */
     createCodeSection(config) {
         const section = document.createElement('div');
+        let content = Array.isArray(config.content) 
+            ? config.content.join('') 
+            : config.content;
+        
+        // URL과 code-line을 링크로 변환
+        // handleCodeLineClick 함수 참조(url)
+        content = this.processLinksInContent(content);
+        
         section.className = 'section';
         
         section.innerHTML = `
@@ -271,12 +293,33 @@ class SectionTemplateManager {
             </div>
             <div class="section-content">
                 <div class="code-block">
-                    ${config.content}
+                    ${content}
                 </div>
             </div>
         `;
 
         return section;
+    }
+
+    /**
+     * content에서 URL과 code-line을 클릭 가능한 링크로 변환
+     * @param {string} content - 원본 content
+     * @returns {string} 링크가 추가된 content
+     */
+    processLinksInContent(content) {
+        // GitHub URL을 클릭 가능한 링크로 변환
+        content = content.replace(
+            /(github\.com\/[^\s<]+)/g, 
+            '<a href="https://$1" target="_blank" rel="noopener noreferrer" style="color: #64B5F6; text-decoration: underline; cursor: pointer;">$1</a>'
+        );
+
+        // code-line 요소들을 클릭 가능한 링크로 변환
+        content = content.replace(
+            /<div class="code-line">([^<]+)<\/div>/g,
+            '<div class="code-line clickable-code-line" onclick="handleCodeLineClick(\'$1\')" style="cursor: pointer; transition: background-color 0.2s ease;" onmouseover="this.style.backgroundColor=\'rgba(100, 181, 246, 0.1)\'" onmouseout="this.style.backgroundColor=\'transparent\'">$1</div>'
+        );
+
+        return content;
     }
 
     /**
@@ -358,6 +401,35 @@ window.SectionHelpers = {
     addBasicSection: function(title, content) {
         const section = window.SectionManager.createBasicSection({ title, content });
         window.SectionManager.appendToContainer('main-container', section);
+    }
+};
+
+// code-line 클릭 핸들러 전역 함수
+window.handleCodeLineClick = function(codeLineText) {
+    // GitHub 레포지토리 URL 매핑
+    const codeLineUrls = {
+        'LAST SURVIVOR': 'https://github.com/adf789/Last_Survivor',
+        'RUNE MUSIC': 'https://github.com/adf789/RuneMusic',
+        'TOY PARTY': 'https://github.com/adf789/ToyParty',
+        'TIMELESS SCRIPT': 'https://github.com/adf789/TimelessScript',
+        'PORTFOLIOE': 'https://github.com/adf789/PortfolioE'
+    };
+
+    const url = codeLineUrls[codeLineText];
+    if (url) {
+        // 새 탭에서 GitHub 링크 열기
+        window.open(url, '_blank', 'noopener,noreferrer');
+    } else {
+        // URL 매핑이 없는 경우 메인 레포지토리로 이동
+        window.open('https://github.com/adf789', '_blank', 'noopener,noreferrer');
+    }
+    
+    // 클릭 피드백 효과
+    if (window.Event && window.Event.target) {
+        window.Event.target.style.backgroundColor = 'rgba(100, 181, 246, 0.3)';
+        setTimeout(() => {
+            window.Event.target.style.backgroundColor = 'transparent';
+        }, 200);
     }
 };
 

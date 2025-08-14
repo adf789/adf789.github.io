@@ -5,7 +5,11 @@
       "mcp__playwright__browser_evaluate",
       "mcp__playwright__browser_navigate",
       "Bash(python:*)",
-      "mcp__sequential-thinking__sequentialthinking"
+      "mcp__sequential-thinking__sequentialthinking",
+      "Bash(/dev/null)",
+      "Bash(od:*)",
+      "Bash(claude --version)",
+      "mcp__playwright__browser_click"
     ],
     "deny": [],
     "ask": []

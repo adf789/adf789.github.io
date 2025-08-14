@@ -33,12 +33,22 @@ export class CareerManager {
         const months = totalMonths % 12;
 
         return {
+            startYear: this.startDate.getFullYear(),
+            startMonth: this.startDate.getMonth() + 1,
             years,
             months,
             totalMonths,
             startDate: this.startDate.toLocaleDateString('ko-KR'),
             currentDate: now.toLocaleDateString('ko-KR')
         };
+    }
+
+    /**
+     * 경력 계산 (햇수)
+     */
+    calculateExperienceYearCount() {
+        const now = new Date();
+        return now.getFullYear() - this.startDate.getFullYear() + 1;
     }
 
     /**
@@ -50,8 +60,7 @@ export class CareerManager {
         const randomSkill = this.skills[Math.floor(Math.random() * this.skills.length)];
         
         // 경력에 따른 레벨 시스템
-        let grade = this.getCurrentLevel();
-        const exp = this.calculateExperience();
+        let grade = this.getCurrentGrade();
         const tooltipText = `0-1년 : 🟤 DIRT
 1-3년: 🔘 STONE
 3-5년: ⚪ IRON
@@ -60,7 +69,7 @@ export class CareerManager {
 10-15년: 🔵 DIAMOND
 15년+: ⚫ BEDROCK`;
 
-        const newTitle = `${this.baseTitle} • ${grade} ENGINEER (${exp.years}년 ${exp.months}개월째)• ${randomSkill} 🎮`;
+        const newTitle = `${this.baseTitle} • ${grade} ENGINEER • ${randomSkill} 🎮`;
         
         this.titleElement.textContent = newTitle;
         this.titleElement.title = tooltipText;
@@ -101,10 +110,18 @@ export class CareerManager {
     }
 
     /**
+     * 경력 년차 정보 가져오기 (다른 모듈에서 사용)
+     * @returns {Object} 경력 정보
+     */
+    getExperienceYearCountData() {
+        return this.calculateExperienceYearCount();
+    }
+
+    /**
      * 레벨 정보 가져오기
      * @returns {string} 현재 레벨
      */
-    getCurrentLevel() {
+    getCurrentGrade() {
         const experience = this.calculateExperience();
 
         if (experience.years >= 15) {

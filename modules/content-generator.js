@@ -40,7 +40,6 @@ export class ContentGenerator {
             console.log('📄 Content data loaded:', this.sections.length, 'sections');
         } catch (error) {
             console.error('Failed to load content data:', error);
-            this.loadFallbackContent();
         }
     }
 
@@ -66,7 +65,7 @@ export class ContentGenerator {
         // 경력 정보 추가
         if (window.CareerManager) {
             this.personalInfo.experience = window.CareerManager.getExperienceData();
-            this.personalInfo.level = window.CareerManager.getCurrentLevel();
+            this.personalInfo.level = window.CareerManager.getCurrentGrade();
         }
     }
 
@@ -81,27 +80,6 @@ export class ContentGenerator {
         if (text.includes('github')) return 'github';
         if (text.includes('linkedin')) return 'linkedin';
         return 'other';
-    }
-
-    /**
-     * 폴백 콘텐츠 로드
-     */
-    loadFallbackContent() {
-        this.sections = [
-            {
-                type: 'basic',
-                title: 'PLAYER PROFILE',
-                content: '🎮 게임 개발자 • 5년 경력 • Unity & Unreal'
-            }
-        ];
-        
-        this.personalInfo = {
-            name: '김경한',
-            title: 'GAME DEVELOPER',
-            contacts: []
-        };
-        
-        console.warn('Using fallback content data');
     }
 
     /**
@@ -353,34 +331,75 @@ export class ContentGenerator {
     cleanHTMLForWord(html) {
         if (!html) return '';
         
+        // 단계별 클리닝을 통한 가독성 개선
+        let cleanedHtml = html;
+        
+        // 1단계: 이모지를 텍스트로 변환
+        cleanedHtml = this.replaceEmojisWithText(cleanedHtml);
+        
+        // 2단계: 불필요한 HTML 요소 제거
+        cleanedHtml = this.removeUnnecessaryElements(cleanedHtml);
+        
+        // 3단계: 텍스트 정리
+        cleanedHtml = this.finalTextCleanup(cleanedHtml);
+        
+        return cleanedHtml;
+    }
+
+    /**
+     * 이모지를 텍스트로 변환
+     * @param {string} text - 원본 텍스트
+     * @returns {string} 변환된 텍스트
+     */
+    replaceEmojisWithText(text) {
+        const emojiMap = {
+            '🏗️': '[건축]',
+            '🎯': '[타겟]',
+            '⚡': '[번개]',
+            '🎮': '[게임]',
+            '📱': '[모바일]',
+            '👥': '[팀]',
+            '⏰': '[시간]',
+            '📈': '[성장]',
+            '🧱': '[블록]',
+            '⚔️': '[검]',
+            '🚀': '[로켓]',
+            '🎓': '[졸업모]',
+            '📜': '[인증서]',
+            '🏆': '[트로피]',
+            '💻': '[컴퓨터]',
+            '🔧': '[도구]',
+            '📚': '[책]'
+        };
+        
+        let result = text;
+        Object.entries(emojiMap).forEach(([emoji, replacement]) => {
+            result = result.replace(new RegExp(emoji, 'g'), replacement);
+        });
+        
+        return result;
+    }
+
+    /**
+     * 불필요한 HTML 요소 제거
+     * @param {string} html - 원본 HTML
+     * @returns {string} 정리된 HTML
+     */
+    removeUnnecessaryElements(html) {
         return html
-            // 이모지를 텍스트로 변환
-            .replace(/🏗️/g, '[건축]')
-            .replace(/🎯/g, '[타겟]')
-            .replace(/⚡/g, '[번개]')
-            .replace(/🎮/g, '[게임]')
-            .replace(/📱/g, '[모바일]')
-            .replace(/👥/g, '[팀]')
-            .replace(/⏰/g, '[시간]')
-            .replace(/📈/g, '[성장]')
-            .replace(/🧱/g, '[블록]')
-            .replace(/⚔️/g, '[검]')
-            .replace(/🚀/g, '[로켓]')
-            .replace(/🎓/g, '[졸업모]')
-            .replace(/📜/g, '[인증서]')
-            .replace(/🏆/g, '[트로피]')
-            .replace(/💻/g, '[컴퓨터]')
-            .replace(/🔧/g, '[도구]')
-            .replace(/📚/g, '[책]')
-            // 불필요한 스타일 제거
             .replace(/style="[^"]*"/g, '')
-            // 미디어 갤러리 제거
             .replace(/<div class="media-gallery">[\s\S]*?<\/div>/g, '')
-            // 이미지 관련 제거
             .replace(/<img[^>]*>/g, '[이미지]')
-            // 성능 통계 제거
-            .replace(/<div class="performance-stats">[\s\S]*?<\/div>/g, '')
-            // 기타 정리
+            .replace(/<div class="performance-stats">[\s\S]*?<\/div>/g, '');
+    }
+
+    /**
+     * 최종 텍스트 정리
+     * @param {string} text - 원본 텍스트
+     * @returns {string} 정리된 텍스트
+     */
+    finalTextCleanup(text) {
+        return text
             .replace(/\n\s*\n/g, '\n')
             .trim();
     }

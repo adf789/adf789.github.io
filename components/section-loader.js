@@ -86,9 +86,7 @@ class SectionLoader {
         existingSections.forEach(section => section.remove());
 
         // 새 섹션들 렌더링
-        const sectionsArray = Array.isArray(this.sectionsData) 
-            ? this.sectionsData 
-            : this.sectionsData.sections || [];
+        const sectionsArray = this.getSectionsArray();
             
         console.log('📊 Rendering sections:', sectionsArray.length, 'sections found');
         
@@ -280,6 +278,22 @@ class SectionLoader {
     getLoadedSections() {
         return this.loadedSections;
     }
+
+    /**
+     * 섹션 배열 추출 (가독성 개선을 위한 헬퍼 메서드)
+     * @returns {Array} 섹션 배열
+     */
+    getSectionsArray() {
+        if (Array.isArray(this.sectionsData)) {
+            return this.sectionsData;
+        }
+        
+        if (this.sectionsData && this.sectionsData.sections) {
+            return this.sectionsData.sections;
+        }
+        
+        return [];
+    }
 }
 
 // 전역 인스턴스 생성
@@ -342,46 +356,5 @@ window.SectionUtils = {
         console.log('📥 Sections data downloaded');
     }
 };
-
-// // 즉시 섹션 로딩 시도
-// (async function immediateLoad() {
-//     console.log('🚀 Starting immediate section loading...');
-    
-//     // DOM 준비 확인
-//     const waitForDOM = () => {
-//         return new Promise(resolve => {
-//             if (document.readyState !== 'loading') {
-//                 resolve();
-//             } else {
-//                 document.addEventListener('DOMContentLoaded', resolve);
-//             }
-//         });
-//     };
-    
-//     try {
-//         await waitForDOM();
-        
-//         // SectionManager 준비 대기 (최대 2초)
-//         let managerReady = false;
-//         for (let i = 0; i < 20; i++) {
-//             if (window.SectionManager) {
-//                 managerReady = true;
-//                 break;
-//             }
-//             await new Promise(resolve => setTimeout(resolve, 100));
-//         }
-        
-//         if (managerReady) {
-//             const loaded = await window.SectionLoader.loadSections();
-//             if (loaded && loaded.length > 0) {
-//                 console.log(`✅ Advanced sections loaded: ${loaded.length} sections`);
-//             }
-//         } else {
-//             console.log('📋 SectionManager not ready - no fallback available');
-//         }
-//     } catch (error) {
-//         console.log('📋 Advanced loading failed - ignoring as requested:', error.message);
-//     }
-// })();
 
 console.log('📂 Section Loader system loaded successfully!');
