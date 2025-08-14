@@ -372,6 +372,9 @@ export class ContentGenerator {
             '📚': '[책]'
         };
         
+        if(Array.isArray(text))
+            text = text.join("");
+        
         let result = text;
         Object.entries(emojiMap).forEach(([emoji, replacement]) => {
             result = result.replace(new RegExp(emoji, 'g'), replacement);
