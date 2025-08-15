@@ -27,7 +27,7 @@
         {
           "title": "🎮 GAME ENGINES",
           "skills": [
-            { "name": "Unity (5년 경험)", "level": 85 },
+            { "name": "Unity (실무 5년)", "level": 85 },
             { "name": "Unreal Engine (학습 중)", "level": 20 }
           ]
         },
@@ -51,20 +51,19 @@
       "title": "[(n)erdystar_] Fluffy Town2(가제)",
       "meta": [
         "📱 MOBILE",
-        "👥 TEAM: 6",
-        "⏰ 5 MONTHS",
-        "📈 1M+ DOWNLOADS"
+        "👥 TEAM: 8",
+        "⏰ 6 MONTHS",
+        "⏳ READY FOR GAME RELEASE"
       ],
       "description": [
         "<strong>ROLE:</strong> 메인 클라이언트 개발자 (UI 시스템, 전투 시스템)<br>",
         "<strong>BRIEF EXPLANATION:</strong> 게임입니다.<br>"
       ],
       "techTags": [
-        { "name": "UNITY 2021.3", "icon": "assets/images/icons/unity-icon.svg" },
-        { "name": "C#", "icon": "assets/images/icons/csharp-icon.svg" },
-        { "name": "UGUI", "icon": "assets/images/icons/ugui-icon.svg" },
-        { "name": "MIRROR NET", "icon": "assets/images/icons/mirror-icon.svg" },
-        { "name": "ADDRESSABLES", "icon": "assets/images/icons/addressables-icon.svg" }
+        { "name": "UNITY 2022.3", "icon": "assets/images/icons/unity.svg" },
+        { "name": "C#", "icon": "assets/images/icons/csharp.svg" },
+        { "name": "UGUI", "icon": "" },
+        { "name": "LOCAL DATA SAVING", "icon": "" }
       ],
       "hasDetails": true,
       "detailsContent": [
@@ -136,21 +135,21 @@
       "id": "4Ground9",
       "title": "[(n)erdystar_] 4GROUND9",
       "meta": [
-        "📱 MOBILE",
-        "👥 TEAM: 15",
-        "⏰ 18 MONTHS",
-        "📈 1M+ DOWNLOADS"
+        "📱&💻 MOBILE & PC CROSS PLATFORM",
+        "👥 TEAM: 60+",
+        "⏰ 24 MONTHS",
+        "⏳ READY FOR GAME RELEASE"
       ],
       "description": [
-        "<strong>ROLE:</strong> 메인 클라이언트 개발자 (UI 시스템, 전투 시스템)<br>",
+        "<strong>ROLE:</strong> 클라이언트 개발자 (UI 시스템)<br>",
         "<strong>BRIEF EXPLANATION:</strong> 게임입니다.<br>"
       ],
       "techTags": [
-        { "name": "UNITY 2021.3", "icon": "assets/images/icons/unity-icon.svg" },
-        { "name": "C#", "icon": "assets/images/icons/csharp-icon.svg" },
-        { "name": "UGUI", "icon": "assets/images/icons/ugui-icon.svg" },
-        { "name": "MIRROR NET", "icon": "assets/images/icons/mirror-icon.svg" },
-        { "name": "ADDRESSABLES", "icon": "assets/images/icons/addressables-icon.svg" }
+        { "name": "UNITY 2022.3", "icon": "assets/images/icons/unity.svg" },
+        { "name": "C#", "icon": "assets/images/icons/csharp.svg" },
+        { "name": "UGUI", "icon": "" },
+        { "name": "ADDRESSABLES", "icon": "" },
+        { "name": "WEB SERVER", "icon": "" }
       ],
       "hasDetails": true,
       "detailsContent": [
@@ -222,21 +221,21 @@
       "id": "desperadoB218",
       "title": "[(n)erdystar_] Desperado B218",
       "meta": [
-        "📱 MOBILE",
-        "👥 TEAM: 15",
-        "⏰ 18 MONTHS",
-        "📈 1M+ DOWNLOADS"
+        "💻 PC",
+        "👥 TEAM: 60+",
+        "⏰ 12 MONTHS",
+        "📀 NFT BlOCKCHAIN"
       ],
       "description": [
-        "<strong>ROLE:</strong> 메인 클라이언트 개발자 (UI 시스템, 전투 시스템)<br>",
+        "<strong>ROLE:</strong> 클라이언트 개발자 (UI 시스템)<br>",
         "<strong>BRIEF EXPLANATION:</strong> 게임입니다.<br>"
       ],
       "techTags": [
-        { "name": "UNITY 2021.3", "icon": "assets/images/icons/unity-icon.svg" },
-        { "name": "C#", "icon": "assets/images/icons/csharp-icon.svg" },
-        { "name": "UGUI", "icon": "assets/images/icons/ugui-icon.svg" },
-        { "name": "MIRROR NET", "icon": "assets/images/icons/mirror-icon.svg" },
-        { "name": "ADDRESSABLES", "icon": "assets/images/icons/addressables-icon.svg" }
+        { "name": "UNITY 2021.3", "icon": "assets/images/icons/unity.svg" },
+        { "name": "C#", "icon": "assets/images/icons/csharp.svg" },
+        { "name": "UGUI", "icon": "" },
+        { "name": "PHOTON", "icon": "assets/images/icons/photon.svg" },
+        { "name": "WEB SERVER", "icon": "" }
       ],
       "hasDetails": true,
       "detailsContent": [
@@ -309,20 +308,20 @@
       "title": "[(n)erdystar_] EXOS HEROES",
       "meta": [
         "📱 MOBILE",
-        "👥 TEAM: 15",
-        "⏰ 18 MONTHS",
-        "📈 1M+ DOWNLOADS"
+        "👥 TEAM: 100+",
+        "⏰ 8 MONTHS",
+        "📈 5M+ DOWNLOADS"
       ],
       "description": [
-        "<strong>ROLE:</strong> 메인 클라이언트 개발자 (UI 시스템, 전투 시스템)<br>",
+        "<strong>ROLE:</strong> 클라이언트 개발자 (UI 시스템, 전투 시스템)<br>",
         "<strong>BRIEF EXPLANATION:</strong> 게임입니다.<br>"
       ],
       "techTags": [
-        { "name": "UNITY 2021.3", "icon": "assets/images/icons/unity-icon.svg" },
-        { "name": "C#", "icon": "assets/images/icons/csharp-icon.svg" },
-        { "name": "UGUI", "icon": "assets/images/icons/ugui-icon.svg" },
-        { "name": "MIRROR NET", "icon": "assets/images/icons/mirror-icon.svg" },
-        { "name": "ADDRESSABLES", "icon": "assets/images/icons/addressables-icon.svg" }
+        { "name": "UNITY 2021.3", "icon": "assets/images/icons/unity.svg" },
+        { "name": "C#", "icon": "assets/images/icons/csharp.svg" },
+        { "name": "NGUI", "icon": "assets/images/icons/ngui.png" },
+        { "name": "PHOTON ENGINE", "icon": "assets/images/icons/photon.svg" },
+        { "name": "WEB SERVER", "icon": "" }
       ],
       "hasDetails": true,
       "detailsContent": [
@@ -394,21 +393,20 @@
       "id": "sungju",
       "title": "[드림아이디어소프트] 성주참외 메타버스",
       "meta": [
-        "📱 MOBILE",
-        "👥 TEAM: 15",
-        "⏰ 18 MONTHS",
-        "📈 1M+ DOWNLOADS"
+        "💶 WEB",
+        "👥 TEAM: 6",
+        "⏰ 3 MONTHS",
+        "🎆 EVENT PROJECT"
       ],
       "description": [
         "<strong>ROLE:</strong> 메인 클라이언트 개발자 (UI 시스템, 전투 시스템)<br>",
         "<strong>BRIEF EXPLANATION:</strong> 게임입니다.<br>"
       ],
       "techTags": [
-        { "name": "UNITY 2021.3", "icon": "assets/images/icons/unity-icon.svg" },
-        { "name": "C#", "icon": "assets/images/icons/csharp-icon.svg" },
-        { "name": "UGUI", "icon": "assets/images/icons/ugui-icon.svg" },
-        { "name": "MIRROR NET", "icon": "assets/images/icons/mirror-icon.svg" },
-        { "name": "ADDRESSABLES", "icon": "assets/images/icons/addressables-icon.svg" }
+        { "name": "UNITY 2021.3", "icon": "assets/images/icons/unity.svg" },
+        { "name": "C#", "icon": "assets/images/icons/csharp.svg" },
+        { "name": "UGUI", "icon": "" },
+        { "name": "PHOTON ENGINE", "icon": "assets/images/icons/photon.svg" }
       ],
       "hasDetails": true,
       "detailsContent": [
@@ -481,20 +479,17 @@
       "title": "[드림아이디어소프트] 원더킹 온라인",
       "meta": [
         "📱 MOBILE",
-        "👥 TEAM: 15",
-        "⏰ 18 MONTHS",
-        "📈 1M+ DOWNLOADS"
+        "👥 TEAM: 3",
+        "⏰ 3 MONTHS",
+        "🛑 Closed Beta Test"
       ],
       "description": [
-        "<strong>ROLE:</strong> 메인 클라이언트 개발자 (UI 시스템, 전투 시스템)<br>",
-        "<strong>BRIEF EXPLANATION:</strong> 게임입니다.<br>"
+        "<strong>ROLE:</strong> 메인 클라이언트 개발자 (자동 진행 컨텐츠 추가)<br>",
+        "<strong>BRIEF EXPLANATION:</strong> 과거 오픈 되었던 원더킹 MMORPG PC 게임을 재런칭을 하게 되어 레벨 리밸런싱, 자동 컨텐츠 추가 등 일부 수정 작업이 진행되었습니다.<br>"
       ],
       "techTags": [
-        { "name": "UNITY 2021.3", "icon": "assets/images/icons/unity-icon.svg" },
-        { "name": "C#", "icon": "assets/images/icons/csharp-icon.svg" },
-        { "name": "UGUI", "icon": "assets/images/icons/ugui-icon.svg" },
-        { "name": "MIRROR NET", "icon": "assets/images/icons/mirror-icon.svg" },
-        { "name": "ADDRESSABLES", "icon": "assets/images/icons/addressables-icon.svg" }
+        { "name": "DirectX9", "icon": "assets/images/icons/directx.png" },
+        { "name": "C++", "icon": "assets/images/icons/cpp.svg" }
       ],
       "hasDetails": true,
       "detailsContent": [
@@ -567,20 +562,20 @@
       "title": "[드림아이디어소프트] 아스트라의 전설(현 세피루스)",
       "meta": [
         "📱 MOBILE",
-        "👥 TEAM: 15",
-        "⏰ 18 MONTHS",
-        "📈 1M+ DOWNLOADS"
+        "👥 TEAM: 8",
+        "⏰ 14 MONTHS",
+        "📈 100K+ DOWNLOADS"
       ],
       "description": [
-        "<strong>ROLE:</strong> 메인 클라이언트 개발자 (UI 시스템, 전투 시스템)<br>",
+        "<strong>ROLE:</strong> 클라이언트 개발자 (UI 시스템, 전투 시스템)<br>",
         "<strong>BRIEF EXPLANATION:</strong> 게임입니다.<br>"
       ],
       "techTags": [
-        { "name": "UNITY 2021.3", "icon": "assets/images/icons/unity-icon.svg" },
-        { "name": "C#", "icon": "assets/images/icons/csharp-icon.svg" },
-        { "name": "UGUI", "icon": "assets/images/icons/ugui-icon.svg" },
-        { "name": "MIRROR NET", "icon": "assets/images/icons/mirror-icon.svg" },
-        { "name": "ADDRESSABLES", "icon": "assets/images/icons/addressables-icon.svg" }
+        { "name": "UNITY 2019.4", "icon": "assets/images/icons/oldunity.svg" },
+        { "name": "C#", "icon": "assets/images/icons/csharp.svg" },
+        { "name": "UGUI", "icon": "" },
+        { "name": "PHOTON ENGINE", "icon": "assets/images/icons/photon.svg" },
+        { "name": "PHP", "icon": "assets/images/icons/php.svg" }
       ],
       "hasDetails": true,
       "detailsContent": [
@@ -594,34 +589,6 @@
         "    <div class=\"stat-value\">40%</div>",
         "    <div class=\"stat-label\">메모리 절감</div>",
         "  </div>",
-        "</div>",
-        "",
-        "<h3 style=\"color: #1976D2; margin: 20px 0 10px 0; font-size: 0.8em;\">🏗️ SYSTEM ARCHITECTURE</h3>",
-        "<div class=\"architecture-diagram\">",
-        "  <img src=\"assets/images/projects/system-architecture.png\" alt=\"System Architecture Diagram\" class=\"architecture-image\">",
-        "</div>",
-        "",
-        "<h3 style=\"color: #1976D2; margin: 20px 0 10px 0; font-size: 0.8em;\">💻 CODE SAMPLE</h3>",
-        "<div class=\"code-snippet\">",
-        "// 최적화된 UI 매니저 핵심 로직",
-        "public class UIManager : MonoBehaviour ",
-        "{",
-        "    private Dictionary&lt;Type, UIPanel&gt; panelCache = new();",
-        "    private Stack&lt;UIPanel&gt; panelStack = new();",
-        "    ",
-        "    public T ShowPanel&lt;T&gt;() where T : UIPanel",
-        "    {",
-        "        if (!panelCache.TryGetValue(typeof(T), out var panel))",
-        "        {",
-        "            panel = ResourcePool.Instance.GetPanel&lt;T&gt;();",
-        "            panelCache[typeof(T)] = panel;",
-        "        }",
-        "        ",
-        "        panelStack.Push(panel);",
-        "        panel.Show();",
-        "        return panel as T;",
-        "    }",
-        "}",
         "</div>",
         "",
         "<h3 style=\"color: #1976D2; margin: 20px 0 10px 0; font-size: 0.8em;\">🎮 GAME SCREENSHOTS</h3>",
@@ -662,9 +629,9 @@
         "<strong>BRIEF EXPLANATION:</strong> 퍼즐형 게임입니다.🧩<br>"
       ],
       "techTags": [
-        { "name": "UNITY 2021.3", "icon": "assets/images/icons/unity-icon.svg" },
-        { "name": "C#", "icon": "assets/images/icons/csharp-icon.svg" },
-        { "name": "UGUI", "icon": "assets/images/icons/ugui-icon.svg" }
+        { "name": "UNITY 2021.3", "icon": "assets/images/icons/unity.svg" },
+        { "name": "C#", "icon": "assets/images/icons/csharp.svg" },
+        { "name": "UGUI", "icon": "" }
       ],
       "hasDetails": true,
       "detailsContent": [
@@ -726,7 +693,7 @@
       "meta": [
         "💻 PC",
         "👥 TEAM: 1",
-        "⏰ 1 Week",
+        "⏰ 3 Months",
         "🥽 PROTOTYPE"
       ],
       "description": [
@@ -734,9 +701,8 @@
         "<strong>BRIEF EXPLANATION:</strong> 퍼즐형 게임입니다.🧩<br>"
       ],
       "techTags": [
-        { "name": "UNITY 2021.3", "icon": "assets/images/icons/unity-icon.svg" },
-        { "name": "C#", "icon": "assets/images/icons/csharp-icon.svg" },
-        { "name": "UGUI", "icon": "assets/images/icons/ugui-icon.svg" }
+        { "name": "Unreal Engine 5", "icon": "assets/images/icons/unrealengine.svg" },
+        { "name": "C++", "icon": "assets/images/icons/cpp.svg" }
       ],
       "hasDetails": true,
       "detailsContent": [
@@ -798,7 +764,7 @@
       "meta": [
         "📱 MOBILE",
         "👥 TEAM: 2",
-        "⏰ 1 Week",
+        "⏰ 1 Month",
         "🥽 PROTOTYPE"
       ],
       "description": [
@@ -806,80 +772,9 @@
         "<strong>BRIEF EXPLANATION:</strong> 퍼즐형 게임입니다.🧩<br>"
       ],
       "techTags": [
-        { "name": "UNITY 2021.3", "icon": "assets/images/icons/unity-icon.svg" },
-        { "name": "C#", "icon": "assets/images/icons/csharp-icon.svg" },
-        { "name": "UGUI", "icon": "assets/images/icons/ugui-icon.svg" }
-      ],
-      "hasDetails": true,
-      "detailsContent": [
-        "<h3 style=\"color: #1976D2; margin: 20px 0 10px 0; font-size: 0.8em;\">🏗️ SYSTEM ARCHITECTURE</h3>",
-        "<div class=\"architecture-diagram\">",
-        "  <img src=\"assets/images/projects/system-architecture.png\" alt=\"System Architecture Diagram\" class=\"architecture-image\">",
-        "</div>",
-        "",
-        "<h3 style=\"color: #1976D2; margin: 20px 0 10px 0; font-size: 0.8em;\">💻 CODE SAMPLE</h3>",
-        "<div class=\"code-snippet\">",
-        "// 최적화된 UI 매니저 핵심 로직",
-        "public class UIManager : MonoBehaviour ",
-        "{",
-        "    private Dictionary&lt;Type, UIPanel&gt; panelCache = new();",
-        "    private Stack&lt;UIPanel&gt; panelStack = new();",
-        "    ",
-        "    public T ShowPanel&lt;T&gt;() where T : UIPanel",
-        "    {",
-        "        if (!panelCache.TryGetValue(typeof(T), out var panel))",
-        "        {",
-        "            panel = ResourcePool.Instance.GetPanel&lt;T&gt;();",
-        "            panelCache[typeof(T)] = panel;",
-        "        }",
-        "        ",
-        "        panelStack.Push(panel);",
-        "        panel.Show();",
-        "        return panel as T;",
-        "    }",
-        "}",
-        "</div>",
-        "",
-        "<h3 style=\"color: #1976D2; margin: 20px 0 10px 0; font-size: 0.8em;\">🎮 GAME SCREENSHOTS</h3>",
-        "<div class=\"media-gallery\">",
-        "  <div class=\"media-item\">",
-        "    <img src=\"assets/images/projects/mobile-rpg-1.png\" ",
-        "         alt=\"Mobile RPG - Main Game Screen\" ",
-        "         onclick=\"openImageModal(this)\" ",
-        "         onerror=\"this.style.display='none'; this.nextElementSibling.style.display='block';\">",
-        "    <p class=\"media-caption\">메인 게임 화면 - UI 시스템</p>",
-        "  </div>",
-
-        "  <div class=\"media-item\">",
-        "    <img src=\"assets/images/projects/mobile-rpg-2.png\" ",
-        "         alt=\"Mobile RPG - Battle System\" ",
-        "         onclick=\"openImageModal(this)\" ",
-        "         onerror=\"this.style.display='none'; this.nextElementSibling.style.display='block';\">",
-        "    <p class=\"media-caption\">전투 시스템 - 네트워크 동기화</p>",
-        "  </div>",
-        "</div>"
-      ]
-    },
-
-    {
-      "type": "project",
-      "sectionTitle": "PERSONAL PROJECTS",
-      "id": "lastSurvivor",
-      "title": "Last Survivor",
-      "meta": [
-        "💻 PC",
-        "👥 TEAM: 1",
-        "⏰ 1 Week",
-        "🥽 PROTOTYPE"
-      ],
-      "description": [
-        "<strong>ROLE:</strong> 메인 클라이언트 개발자 (UI 시스템, 퍼즐 로직)<br>",
-        "<strong>BRIEF EXPLANATION:</strong> 퍼즐형 게임입니다.🧩<br>"
-      ],
-      "techTags": [
-        { "name": "UNITY 2021.3", "icon": "assets/images/icons/unity-icon.svg" },
-        { "name": "C#", "icon": "assets/images/icons/csharp-icon.svg" },
-        { "name": "UGUI", "icon": "assets/images/icons/ugui-icon.svg" }
+        { "name": "UNITY 2021.3", "icon": "assets/images/icons/unity.svg" },
+        { "name": "C#", "icon": "assets/images/icons/csharp.svg" },
+        { "name": "UGUI", "icon": "" }
       ],
       "hasDetails": true,
       "detailsContent": [
@@ -940,7 +835,6 @@
         "<div style=\"color: #E1BEE7; margin-bottom: 15px; font-weight: 500;\">",
         "GITHUB REPOSITORY ACCESS<br>",
         "🔗 URL: github.com/adf789<br><br>",
-        "<div class=\"code-line\">LAST SURVIVOR</div>",
         "<div class=\"code-line\">RUNE MUSIC</div>",
         "<div class=\"code-line\">TOY PARTY</div>",
         "<div class=\"code-line\">PORTFOLIOE</div>",
