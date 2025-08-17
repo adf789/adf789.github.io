@@ -150,6 +150,11 @@ export class UIInteractions {
     closeImageModal() {
         if (!this.modal) return;
 
+        // 이미지 다시 표시
+        if (this.modalImage) {
+            this.modalImage.style.display = 'block';
+        }
+
         // 애니메이션으로 닫기
         this.modal.style.transition = 'opacity 0.3s ease';
         this.modal.style.opacity = '0';

@@ -517,7 +517,7 @@ body::before {
 
 .performance-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: 1fr;
     gap: 15px;
     margin: 20px 0;
 }
@@ -532,6 +532,8 @@ body::before {
     padding: 12px 8px;
     text-align: center;
     position: relative;
+    width: 100%;
+    display: block;
 }
 
 .stat-item::before {
@@ -1359,7 +1361,7 @@ body::before {
     }
     
     .performance-stats {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
         gap: 10px;
     }
     
